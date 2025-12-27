@@ -7,8 +7,9 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import com.fayaz.taskmanagement.auth.entity.UserEntity;;;
 
 public interface UserRepository extends MongoRepository<UserEntity, String> {
-    Optional<UserEntity> findByUsername(String username);
-    boolean existsByUsername(String username);
+    Optional<UserEntity> findByUserName(String userName);
+    boolean existsByUserName(String userName);
     Optional<UserEntity> findByEmail(String email);
+    Optional<UserEntity> findByUserNameOrEmail(String userName, String email);
     boolean existsByEmail(String email);
 }

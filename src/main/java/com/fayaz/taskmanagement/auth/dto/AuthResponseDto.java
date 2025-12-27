@@ -1,11 +1,12 @@
 package com.fayaz.taskmanagement.auth.dto;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.AllArgsConstructor;
 
 @Data
-@AllArgsConstructor
+@Builder
 public class AuthResponseDto {
-    private String message;
+    private String token;
+    private String userName;
 }
 

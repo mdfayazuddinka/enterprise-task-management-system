@@ -23,16 +23,15 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/signup")
-    public ResponseEntity<AuthResponseDto> signup(
+    public ResponseEntity<String> signup(
             @Valid @RequestBody SignUpRequestDto request) {
 
         authService.signup(request);
-        return ResponseEntity.ok(new AuthResponseDto("User registered successfully"));
+        return ResponseEntity.ok("User registered successfully");
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDto> login(@Valid @RequestBody LoginRequestDto request) {
-        authService.login(request);
-        return ResponseEntity.ok(new AuthResponseDto("Login successful"));
+        return ResponseEntity.ok(authService.login(request));
     }
 }

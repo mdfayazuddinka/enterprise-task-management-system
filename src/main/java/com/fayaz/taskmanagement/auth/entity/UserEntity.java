@@ -19,12 +19,15 @@ public class UserEntity {
     private String id;
 
     @Indexed(unique = true)
+    private String userId;
+
+    @Indexed(unique = true)
     private String email;
 
     private String password;
 
     @Indexed(unique = true)
-    private String username;
+    private String userName;
 
     private RoleEnum role;
     private Instant createdAt;

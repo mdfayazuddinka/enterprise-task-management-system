@@ -13,8 +13,8 @@ import lombok.Data;
 public class SignUpRequestDto {
 
    @NotBlank
-   @Size(min = 4, message = "Username must be at least 4 characters")
-   private String username;
+   @Size(min = 4, message = "User name must be at least 4 characters")
+   private String userName;
 
    @Email
    @NotBlank
