@@ -1,4 +1,4 @@
-package com.fayaz.auth;
+package com.fayaz.taskmanagement.auth;
 
 public enum RoleEnum {
     ROLE_ADMIN,
