@@ -2,7 +2,6 @@ package com.fayaz.taskmanagement.utils;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -44,15 +43,6 @@ public class JwtUtility {
             .compact();
     }
 
-    public String extractUsername(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(secretKey.getBytes())
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
-    }
-
     public Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(secretKey.getBytes())
@@ -63,7 +53,7 @@ public class JwtUtility {
 
     public boolean isTokenValid(String token) {
         try {
-            extractUsername(token);
+            extractAllClaims(token);
             return true;
         } catch (Exception e) {
             return false;

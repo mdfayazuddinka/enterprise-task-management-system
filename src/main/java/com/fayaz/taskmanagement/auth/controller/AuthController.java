@@ -4,6 +4,8 @@ import com.fayaz.taskmanagement.auth.dto.AuthResponseDto;
 import com.fayaz.taskmanagement.auth.dto.SignUpRequestDto;
 import com.fayaz.taskmanagement.auth.dto.LoginRequestDto;
 import com.fayaz.taskmanagement.auth.service.AuthService;
+
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -31,7 +33,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponseDto> login(@Valid @RequestBody LoginRequestDto request) {
-        return ResponseEntity.ok(authService.login(request));
+    public ResponseEntity<Boolean> login(@Valid @RequestBody LoginRequestDto request, HttpServletResponse response) {
+        return ResponseEntity.ok(authService.login(request, response));
     }
 }

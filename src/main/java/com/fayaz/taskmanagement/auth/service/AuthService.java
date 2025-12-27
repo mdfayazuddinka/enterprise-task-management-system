@@ -14,6 +14,9 @@ import com.fayaz.taskmanagement.auth.dto.SignUpRequestDto;
 import com.fayaz.taskmanagement.auth.entity.UserEntity;
 import com.fayaz.taskmanagement.auth.repository.UserRepository;
 import com.fayaz.taskmanagement.utils.JwtUtility;
+
+import jakarta.servlet.http.HttpServletResponse;
+
 import com.fayaz.taskmanagement.auth.exceptions.InvalidCredentialsException;
 import com.fayaz.taskmanagement.auth.exceptions.UserAlreadyExistsException;
 
@@ -79,7 +82,7 @@ public class AuthService {
         return true;
     }
 
-    public AuthResponseDto login(LoginRequestDto request) {
+    public Boolean login(LoginRequestDto request, HttpServletResponse response) {
         String identifier = request.getIdentifier();
         if (identifier == null || identifier.trim().isEmpty()) {
             throw new InvalidCredentialsException("Invalid username/email or password");
@@ -94,9 +97,9 @@ public class AuthService {
 
         String token = jwtUtil.generateToken(user);
 
-        return AuthResponseDto.builder()
-                .token(token)
-                .userName(user.getUserName())
-                .build();
+         response.setHeader("Authorization", "Bearer " + token);
+
+
+        return true;
     }
 }
