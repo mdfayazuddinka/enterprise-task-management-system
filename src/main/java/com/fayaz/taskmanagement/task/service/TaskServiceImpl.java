@@ -16,9 +16,12 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.fayaz.taskmanagement.CustomException.TaskCreationException;
+import com.fayaz.taskmanagement.CustomException.TaskGenericException;
 import com.fayaz.taskmanagement.CustomException.TaskNotFoundException;
 import com.fayaz.taskmanagement.auth.RoleEnum;
 import com.fayaz.taskmanagement.auth.entity.UserEntity;
@@ -146,8 +149,10 @@ public class TaskServiceImpl implements TaskService {
 
     public TaskDto updateTask(String taskId, TaskUpsertDto task) {
         Optional<TaskEntity> taskEntity = taskRepository.findByTaskId(taskId);
-        if (!taskEntity.isPresent()) {
-            throw new TaskNotFoundException("Task not found with id: " + taskId);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userName = auth.getName();
+        if (!taskEntity.get().getAssignedTo().equals(userName)) {
+            throw new TaskGenericException("User is not authorized to update this task: " + taskId);
         }
         taskEntity.get().setComments(task.getComments());
         taskEntity.get().setAssignedTo(task.getAssignedTo());
@@ -160,6 +165,11 @@ public class TaskServiceImpl implements TaskService {
 
     public void deleteTask(String taskId) {
         Optional<TaskEntity> taskEntity =  taskRepository.findByTaskId(taskId);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userName = auth.getName();
+        if (!taskEntity.get().getAssignedTo().equals(userName)) {
+            throw new TaskGenericException("User is not authorized to delete this task: " + taskId);
+        }
         if (!taskEntity.isPresent()) {
             throw new TaskNotFoundException("Task not found with id: " + taskId);
 

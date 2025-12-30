@@ -13,7 +13,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -39,7 +38,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 if (jwtUtil.isTokenValid(token)) {
                     Claims claims = jwtUtil.extractAllClaims(token);
 
-                    String username = claims.getSubject();
+                    String userId = claims.get("userId", String.class);
                     List<String> roles = claims.get("role", List.class);
 
                     List<SimpleGrantedAuthority> authorities = roles.stream()
@@ -47,7 +46,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                             .collect(Collectors.toList());
 
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                            username,
+                            userId,
                             null,
                             authorities);
 

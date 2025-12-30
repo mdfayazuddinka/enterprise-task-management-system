@@ -26,5 +26,11 @@ public class TaskGlobalExceptionHandler {
         ErrorResponseDto error = new ErrorResponseDto("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR.value());
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @ExceptionHandler(TaskGenericException.class)
+    public ResponseEntity<ErrorResponseDto> handleTaskGenericException(TaskGenericException ex) {
+        ErrorResponseDto error = new ErrorResponseDto(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
     
 }
