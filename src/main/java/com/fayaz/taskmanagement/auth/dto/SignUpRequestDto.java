@@ -2,6 +2,8 @@ package com.fayaz.taskmanagement.auth.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.List;
+
 import com.fayaz.taskmanagement.auth.RoleEnum;
 
 import jakarta.validation.constraints.Email;
@@ -24,5 +26,5 @@ public class SignUpRequestDto {
    @Size(min = 8)
    private String password;
 
-   private RoleEnum role;
+   private List<RoleEnum> role;
 }

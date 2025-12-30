@@ -1,19 +1,23 @@
 
 package com.fayaz.taskmanagement.auth.service;
 
-import java.time.Instant;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.fayaz.taskmanagement.auth.RoleEnum;
-import com.fayaz.taskmanagement.auth.dto.AuthResponseDto;
 import com.fayaz.taskmanagement.auth.dto.LoginRequestDto;
 import com.fayaz.taskmanagement.auth.dto.SignUpRequestDto;
 import com.fayaz.taskmanagement.auth.entity.UserEntity;
 import com.fayaz.taskmanagement.auth.repository.UserRepository;
+import com.fayaz.taskmanagement.utils.AuditDto;
 import com.fayaz.taskmanagement.utils.JwtUtility;
+import com.fayaz.taskmanagement.utils.SequenceEnum;
+import com.fayaz.taskmanagement.utils.SequenceGeneratorService;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -35,6 +39,9 @@ public class AuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private SequenceGeneratorService sequenceGeneratorService;
+
     public void signup(SignUpRequestDto request) {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new UserAlreadyExistsException("Email not available");
@@ -49,12 +56,21 @@ public class AuthService {
         }
 
     String encodedPassword = passwordEncoder.encode(password);
+    long seq = sequenceGeneratorService.getNextSequence(SequenceEnum.USER_SEQUENCE.getSequenceName());
+    String userId = String.format("USR-%05d", seq);
     UserEntity user = UserEntity.builder()
         .userName(request.getUserName())
+        .userId(userId)
         .email(request.getEmail())
         .password(encodedPassword)
-        .role(request.getRole() == null ? RoleEnum.ROLE_USER : request.getRole())
-        .createdAt(Instant.now())
+        .role(request.getRole() == null ? List.of(RoleEnum.ROLE_USER) : request.getRole())
+        .audit(AuditDto.builder()
+            .createdBy(request.getUserName())
+            .createdDate(new Date())
+            .lastModifiedDate(new Date())
+            .lastModifiedBy(request.getUserName())
+            .roles(request.getRole() == null ? List.of(RoleEnum.ROLE_USER) : request.getRole())
+            .build())
         .build();
     userRepository.save(user);
     }
@@ -99,7 +115,14 @@ public class AuthService {
 
          response.setHeader("Authorization", "Bearer " + token);
 
-
         return true;
+    }
+
+    public boolean doesUserExists(String userId) {
+        return userRepository.existsByUserId(userId);
+    }
+
+    public Optional<UserEntity> getUserById(String userId) {
+        return userRepository.findByUserId(userId);
     }
 }

@@ -1,6 +1,5 @@
 package com.fayaz.taskmanagement.auth.controller;
 
-import com.fayaz.taskmanagement.auth.dto.AuthResponseDto;
 import com.fayaz.taskmanagement.auth.dto.SignUpRequestDto;
 import com.fayaz.taskmanagement.auth.dto.LoginRequestDto;
 import com.fayaz.taskmanagement.auth.service.AuthService;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("${endpoint.auth}")
 @RequiredArgsConstructor
 public class AuthController {
 

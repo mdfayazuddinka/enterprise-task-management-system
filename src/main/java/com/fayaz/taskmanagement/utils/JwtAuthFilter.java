@@ -2,6 +2,7 @@ package com.fayaz.taskmanagement.utils;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,30 +30,51 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             HttpServletRequest request,
             HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
+        try {
+            String header = request.getHeader("Authorization");
 
-        String header = request.getHeader("Authorization");
+            if (header != null && header.startsWith("Bearer ")) {
+                String token = header.substring(7);
 
-        if (header != null && header.startsWith("Bearer ")) {
-            String token = header.substring(7);
+                if (jwtUtil.isTokenValid(token)) {
+                    Claims claims = jwtUtil.extractAllClaims(token);
 
-            if (jwtUtil.isTokenValid(token)) {
-                Claims claims = jwtUtil.extractAllClaims(token);
+                    String username = claims.getSubject();
+                    List<String> roles = claims.get("role", List.class);
 
-                String username = claims.getSubject();
-                List<String> roles = claims.get("role", List.class);
+                    List<SimpleGrantedAuthority> authorities = roles.stream()
+                            .map(SimpleGrantedAuthority::new)
+                            .collect(Collectors.toList());
 
-                List<SimpleGrantedAuthority> authorities = roles.stream().map(SimpleGrantedAuthority::new).toList();
+                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                            username,
+                            null,
+                            authorities);
 
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                        username,
-                        null,
-                        authorities
-                );
-
-                SecurityContextHolder.getContext().setAuthentication(authToken);
+                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                }
             }
-        }
 
-        filterChain.doFilter(request, response);
+            filterChain.doFilter(request, response);
+
+        } catch (ExpiredJwtException ex) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
+            response.getWriter().write("""
+                        {
+                          "error": "JWT token expired",
+                          "status": 401
+                        }
+                    """);
+        } catch (JwtException | IllegalArgumentException ex) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
+            response.getWriter().write("""
+                        {
+                          "error": "Invalid JWT token",
+                          "status": 401
+                        }
+                    """);
+        }
     }
 }

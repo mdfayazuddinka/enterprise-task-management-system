@@ -1,22 +1,24 @@
 package com.fayaz.taskmanagement.auth.entity;
 
-import java.time.Instant;
+import java.util.List;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fayaz.taskmanagement.auth.RoleEnum;
+import com.fayaz.taskmanagement.utils.AuditDto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Document(collection = "user")
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Document(collection = "user")
 public class UserEntity {
-    @Id
-    private String id;
 
     @Indexed(unique = true)
     private String userId;
@@ -29,6 +31,7 @@ public class UserEntity {
     @Indexed(unique = true)
     private String userName;
 
-    private RoleEnum role;
-    private Instant createdAt;
+    private List<RoleEnum> role;
+
+    private AuditDto audit;
 }
