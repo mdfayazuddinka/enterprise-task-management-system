@@ -1,0 +1,93 @@
+<form class="sign-up-form" [formGroup]="signupForm" (ngSubmit)="submit()">
+
+  <div class="form-group">
+    <div class="form-label">Username</div>
+    <div>
+        <input id="userName" type="text" formControlName="userName" placeholder="Enter your username" />
+      <small class="formError" *ngIf="signupForm.get('userName')?.touched && signupForm.get('userName')?.invalid">
+        Minimum 4 characters
+      </small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="form-label">Email</div>
+    <div>
+      <input id="email" type="email" formControlName="email" placeholder="you@example.com" />
+      <small class="formError" *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.invalid">
+        Valid email is required
+      </small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="form-label">Password</div>
+    <div class="input-wrapper">
+      <input [type]="passwordVisible ? 'text' : 'password'" id="password" formControlName="password"
+        placeholder="Enter password" />
+      <span class="eye-icon" (click)="togglePasswordVisibility()">
+        {{ passwordVisible ? '🙈' : '👁️' }}
+      </span>
+    </div>
+    <small class="formError"
+        *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid">
+        Password does not meet criteria
+      </small>
+    <ul class="password-requirements grid">
+      <li *ngFor="let criteria of passwordCriteria" [class.valid]="criteria.isValid">
+        <span class="icon">
+          <span *ngIf="criteria.isValid">✔</span>
+          <span *ngIf="!criteria.isValid">•</span>
+        </span>
+        <span class="text">{{ criteria.label }}</span>
+      </li>
+    </ul>
+    <div class="strength-bar">
+      <div class="strength-fill" [style.width.%]="passwordStrengthPercent"></div>
+      <span class="strength-text">
+        {{ passwordStrengthLabel }}
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="form-label">Confirm Password</div>
+    <div class="input-wrapper">
+      <input [type]="confirmPasswordVisible ? 'text' : 'password'" id="confirmPassword"
+        formControlName="confirmPassword" placeholder="Re-enter your password" />
+      <span class="eye-icon" (click)="toggleConfirmPasswordVisibility()">
+        {{ confirmPasswordVisible ? '🙈' : '👁️' }}
+      </span>
+    </div> <small class="formError"
+      *ngIf="signupForm.get('confirmPassword')?.touched && signupForm.get('confirmPassword')?.invalid">
+      Passwords must match
+    </small>
+  </div>
+
+  <div class="form-group">
+    <div class="form-label">Role</div>
+
+    <div class="input-wrapper">
+      <select id="role" formControlName="role">
+        <option *ngFor="let role of roles" [value]="role"> {{ role }} </option>
+      </select>
+
+      <span class="select-arrow">▾</span>
+    </div>
+    <div>
+      <small class="formError"
+        *ngIf="signupForm.get('role')?.touched && signupForm.get('role')?.invalid">
+        Role is required
+      </small>
+    </div>
+  </div>
+
+  <button type="submit" class="sign-up-btn">
+    {{ this.loading ? 'Creating Account...' : 'Create Account' }}
+  </button>
+
+  <div class="footer-text">
+    Already have an account?
+    <a [routerLink]="['/auth', 'login']">Sign in</a>
+  </div>
+</form>

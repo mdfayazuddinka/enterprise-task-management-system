@@ -1,0 +1,36 @@
+<svg
+  width="180"
+  height="48"
+  viewBox="0 0 200 48"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="Task Manager logo"
+>
+  <!-- Icon -->
+  <g transform="translate(0,4)">
+    <path
+      d="M20 0 L36 6 V22 C36 30 28 36 20 40 C12 36 4 30 4 22 V6 Z"
+      fill="#1E40AF"
+    />
+    <path
+      d="M10 20 L18 28 L30 12"
+      stroke="#FFFFFF"
+      stroke-width="3"
+      fill="none"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </g>
+
+  <!-- Text -->
+  <text
+    x="52"
+    y="30"
+    font-family="Inter, system-ui, sans-serif"
+    font-size="22"
+    font-weight="600"
+    fill="#0F172A"
+  >
+    Task Manager
+  </text>
+</svg>

@@ -1,6 +1,7 @@
 package com.fayaz.taskmanagement.auth.controller;
 
 import com.fayaz.taskmanagement.auth.dto.SignUpRequestDto;
+import com.fayaz.taskmanagement.auth.dto.SignUpResponseDto;
 import com.fayaz.taskmanagement.auth.dto.LoginRequestDto;
 import com.fayaz.taskmanagement.auth.service.AuthService;
 
@@ -24,11 +25,10 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signup(
+    public ResponseEntity<SignUpResponseDto> signup(
             @Valid @RequestBody SignUpRequestDto request) {
 
-        authService.signup(request);
-        return ResponseEntity.ok("User registered successfully");
+        return ResponseEntity.ok(authService.signup(request));
     }
 
     @PostMapping("/login")

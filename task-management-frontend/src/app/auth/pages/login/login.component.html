@@ -1,0 +1,73 @@
+<div>
+  <form
+    class="login-form"
+    [formGroup]="loginForm"
+    (ngSubmit)="submit()"
+  >
+
+    <!-- Identifier -->
+    <div class="form-group">
+      <div class="form-label">Username / Email</div>
+      <div>
+        <input
+          type="text"
+          formControlName="identifier"
+          placeholder="Enter username or email"
+        />
+
+        <small class="formError" *ngIf="submitted && f.identifier.errors">
+          Username or email is required
+        </small>
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="password-container">
+      <div class="form-label">Password</div>
+
+      <div class="input-wrapper">
+        <input
+          [type]="passwordVisible ? 'text' : 'password'"
+          formControlName="password"
+          placeholder="Enter password"
+        />
+        <span class="eye-icon" (click)="togglePasswordVisibility()">
+          {{ passwordVisible ? '🙈' : '👁️' }}
+        </span>
+      </div>
+
+      <small class="formError" *ngIf="submitted && f.password.errors">
+        <span *ngIf="f.password.errors['required']">
+          Password is required
+        </span>
+        <span *ngIf="f.password.errors['minlength']">
+          Password must be at least 8 characters
+        </span>
+      </small>
+
+      <div class="forget-password-block">
+        <a href="#">Forgot password?</a>
+      </div>
+    </div>
+
+    <!-- Backend Error -->
+    <small class="formError" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </small>
+
+    <!-- Submit -->
+    <button
+      type="submit"
+      class="login-btn"
+      [disabled]="loginForm.invalid || loading"
+    >
+      {{ loading ? 'Signing in...' : 'Sign In' }}
+    </button>
+
+    <div class="footer-text">
+      Don't have an account?
+      <a [routerLink]="['/auth', 'signup']">Sign up</a>
+    </div>
+
+  </form>
+</div>

@@ -1,1 +1,112 @@
-/* You can add global styles to this file, and also import other style files */
+/* Default: Light Theme */
+:root {
+  /* Primary Colors */
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+
+  /* Backgrounds */
+  --bg-gradient: linear-gradient(135deg, #2563eb 0%, #1e40af 50%, #0f172a 100%);
+  --page-bg: #f8fafc;      /* main page background */
+  --card-bg: #ffffff;      /* card / panel background */
+
+  /* Text */
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+
+  /* Borders / UI elements */
+  --border-color: #cbd5e1;
+  --shadow-color: rgba(0, 0, 0, 0.08);
+
+  --error: #dc2626;
+}
+
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+  --page-bg: #0f172a;
+  --card-bg: #020617;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --border-color: #1e293b;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+
+  background: var(--page-bg); /* PAGE background */
+  color: var(--text-primary);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Links / Buttons / Inputs use variables */
+a {
+  color: var(--primary);
+}
+button {
+  background-color: var(--primary);
+  color: #fff;
+}
+.card {
+  background-color: var(--card-bg);
+  box-shadow: 0 10px 30px var(--shadow-color);
+  border-radius: 12px;
+}
+
+button {
+  background-color: var(--primary);
+  color: #fff;
+}
+
+input {
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px var(--card-bg) inset !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+  transition: background-color 5000s ease-in-out 0s; /* prevents flicker */
+} 
+
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+:root {
+  --input-bg: #fff;
+  --input-text: #000;
+  --input-border: #ced4da;
+  --form-bg: #f8f9fa;
+  --form-text: #212529;
+  --error-color: #dc3545;
+  --btn-bg: #0d6efd;
+  --btn-text: #fff;
+}
+
+.dark-mode {
+  --input-bg: #1e1e2f;
+  --input-text: #fff;
+  --input-border: #6c757d;
+  --form-bg: #0d1117;
+  --form-text: #fff;
+  --error-color: #ff6b6b;
+  --btn-bg: #0d6efd;
+  --btn-text: #fff;
+}
+

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.fayaz.taskmanagement.auth.RoleEnum;
 import com.fayaz.taskmanagement.auth.dto.LoginRequestDto;
 import com.fayaz.taskmanagement.auth.dto.SignUpRequestDto;
+import com.fayaz.taskmanagement.auth.dto.SignUpResponseDto;
 import com.fayaz.taskmanagement.auth.entity.UserEntity;
 import com.fayaz.taskmanagement.auth.repository.UserRepository;
 import com.fayaz.taskmanagement.utils.AuditDto;
@@ -42,7 +43,7 @@ public class AuthService {
     @Autowired
     private SequenceGeneratorService sequenceGeneratorService;
 
-    public void signup(SignUpRequestDto request) {
+    public SignUpResponseDto signup(SignUpRequestDto request) {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new UserAlreadyExistsException("Email not available");
         }
@@ -72,7 +73,14 @@ public class AuthService {
             .roles(request.getRole() == null ? List.of(RoleEnum.ROLE_USER) : request.getRole())
             .build())
         .build();
-    userRepository.save(user);
+    UserEntity savedEntity = userRepository.save(user);
+    SignUpResponseDto responseDto = SignUpResponseDto.builder()
+        .userName(savedEntity.getUserName())
+        .email(savedEntity.getEmail())
+        .role(savedEntity.getRole().get(0))
+        .userId(savedEntity.getUserId())
+        .build();
+    return responseDto;
     }
 
     private boolean isStrongPassword(String password) {

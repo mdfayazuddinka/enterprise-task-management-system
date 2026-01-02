@@ -21,8 +21,11 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private JwtUtility jwtUtil;
+    private final JwtUtility jwtUtil;
+
+    public JwtAuthFilter(JwtUtility jwtUtil) {
+        this.jwtUtil = jwtUtil;
+    }
 
     @Override
     protected void doFilterInternal(
