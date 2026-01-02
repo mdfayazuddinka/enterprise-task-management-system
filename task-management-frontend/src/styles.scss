@@ -18,6 +18,16 @@
   --shadow-color: rgba(0, 0, 0, 0.08);
 
   --error: #dc2626;
+
+  --success: #2ecc71;
+  --text-muted: #8a8f98;
+  --strength-fill: #52c41a;
+  --strength-fill-medium: #f0ad4e;
+  --strength-bg: #e5e5e5;
+  --focus-box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  --form-error: #ff4d4f;
+  --sign-in-wrapper: 0 4px 12px rgba(0,0,0,0.2);
+  --form-control-select-focus : 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
 }
 
 /* Dark Theme Overrides */
@@ -28,6 +38,14 @@
   --text-secondary: #94a3b8;
   --border-color: #1e293b;
   --shadow-color: rgba(0, 0, 0, 0.3);
+  --success: #4ade80;
+  --text-muted: #9ca3af;
+  --strength-fill: #52c41a;
+  --strength-bg: #e5e5e5;
+  --form-error: #ff4d4f;
+  --sign-in-wrapper: 0 4px 12px rgba(0,0,0,0.2);
+  --form-control-select-focus : 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+  --strength-fill-medium: #f0ad4e;
 }
 
 html, body {

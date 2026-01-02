@@ -21,7 +21,7 @@ input, select {
 input:focus select:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  box-shadow: var(--focus-box-shadow);
 }
 
 /* Button */
@@ -29,7 +29,7 @@ input:focus select:focus {
   width: 100%;          /* full width of card */
   height: 46px;
   background-color: var(--primary);
-  color: #fff;
+  color: var(--card-bg);
   border: none;
   border-radius: 10px;
   font-size: 14px;
@@ -74,46 +74,58 @@ input:focus select:focus {
 }
 
 .password-requirements {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 🔥 two columns */
-  gap: 8px 16px;
-  margin-top: 10px;
+  margin: 8px 0 4px;
   padding: 0;
   list-style: none;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2-column layout */
+  column-gap: 24px;
+  row-gap: 6px;
+
   font-size: 13px;
 }
 
 .password-requirements li {
   display: flex;
   align-items: center;
-  color: #94a3b8; /* neutral */
+  gap: 8px;
+
+  color: var(--text-muted);
+  line-height: 1.2;
 }
 
 .password-requirements li.valid {
-  color: #22c55e; /* green */
+  color: var(--success);
 }
 
+/* icon alignment */
 .password-requirements .icon {
-  width: 16px;
+  width: 14px;        /* fixed width = perfect alignment */
   text-align: center;
-  font-weight: bold;
+  flex-shrink: 0;
+  font-size: 12px;
 }
 
-.password-requirements li.valid .icon {
-  color: #22c55e;
+/* text stays aligned even if long */
+.password-requirements .text {
+  white-space: nowrap;       /* prevents ugly wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
 
 .strength-bar {
   margin-top: 8px;
   height: 6px;
-  background: #e5e5e5;
+  background: var(--strength-bg);
   border-radius: 4px;
   position: relative;
   margin-bottom: 10px;
 
   .strength-fill {
     height: 100%;
-    background: #52c41a;
+    background: var(--strength-fill);
     border-radius: 4px;
     transition: width 0.3s ease;
   }
@@ -131,7 +143,7 @@ input:focus select:focus {
 }
 
 .formError {
-  color: #ff4d4f;
+  color: var(--form-error);
   font-size: 12px;
 }
 
@@ -184,11 +196,11 @@ li {
 }
 
 .text-success {
-  color: #28a745 !important;
+  color: var(--success) !important;
 }
 
 .text-danger {
-  color: #dc3545 !important;
+  color: var(--form-error) !important;
 }
 
 .signup-wrapper {
@@ -198,7 +210,7 @@ li {
   margin: 3rem auto;
   padding: 2rem;
   border-radius: 0.5rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: var(--sign-in-wrapper);
 }
 
 .form-control, .form-select {
@@ -208,7 +220,7 @@ li {
 }
 
 .form-control:focus, .form-select:focus {
-  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+  box-shadow: var(--form-control-select-focus);
 }
 
 .text-danger {
@@ -221,3 +233,23 @@ li {
   border-color: var(--btn-bg);
 }
 
+.Strong {
+  color: var(--success) !important;
+  font-weight: 500;
+}
+
+.Medium {
+  color: var(--strength-fill-medium) !important;
+  font-weight: 500;
+}
+
+.Weak {
+  color: var(--form-error) !important;
+  font-weight: 500;
+}
+
+@media (max-width: 480px) {
+  .password-requirements {
+    grid-template-columns: 1fr;
+  }
+}

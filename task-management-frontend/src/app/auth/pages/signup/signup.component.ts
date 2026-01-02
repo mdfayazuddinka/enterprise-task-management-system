@@ -5,6 +5,7 @@ import { AuthService } from '../../auth.service';
 import { Role } from '../../roleEnum';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ToasterService } from '../../../core/toaster.service';
 
 @Component({
   selector: 'app-signup',
@@ -26,15 +27,15 @@ export class SignupComponent implements OnInit {
   passwordStrengthPercent = 0;
   passwordStrengthLabel = '';
 
-  passwordCriteria = [
-    { key: 'length', label: 'At least 8 characters', isValid: false },
-    { key: 'upperLower', label: 'Upper & lower case letters', isValid: false },
-    { key: 'number', label: 'Contains number', isValid: false },
-    { key: 'special', label: 'Contains a special character', isValid: false },
-    { key: 'noSpaces', label: 'No spaces', isValid: false },
-    { key: 'noRepeat', label: 'No repeated characters (aaa)', isValid: false },
-    { key: 'noSequence', label: 'No sequential characters (abc / 123)', isValid: false }
-  ];
+ passwordCriteria = [
+  { key: 'length', label: '8+ characters', isValid: false },
+  { key: 'upperLower', label: 'Upper & lowercase', isValid: false },
+  { key: 'number', label: 'Number (0–9)', isValid: false },
+  { key: 'special', label: 'Special character', isValid: false },
+  { key: 'noSpaces', label: 'No spaces', isValid: false },
+  { key: 'noRepeat', label: 'No repeated characters', isValid: false },
+  { key: 'noSequence', label: 'No sequences (abc, 123)', isValid: false }
+];
 
   signupForm = this.fb.nonNullable.group({
     userName: ['', Validators.required],
@@ -47,7 +48,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toaster: ToasterService
   ) { }
 
   ngOnInit(): void {
@@ -88,6 +90,10 @@ export class SignupComponent implements OnInit {
       this.passwordStrengthPercent === 100 ? 'Strong'
         : this.passwordStrengthPercent >= 60 ? 'Medium'
           : 'Weak';
+
+    if (this.passwordStrengthPercent < 100) {
+      this.signupForm.controls.password.setErrors({ weak: true });
+    }
   }
 
   private resetPasswordStrength(): void {
@@ -139,12 +145,19 @@ export class SignupComponent implements OnInit {
     };
 
     this.authService.signup(payload).subscribe({
-      next: () => {
+      next: (user) => {
+        this.toaster.show(`Signup successful with username ${user.userName} ! Please login.`, 'success');
         this.loading = false;
         this.router.navigate(['/auth/login']);
       },
-      error: () => {
+      error: (error) => {
         this.loading = false;
+        const errorMessage =
+          error?.error?.status === 500
+            ? "Signup failed. Please try again"
+            : error?.error || "An unexpected error occurred";
+
+        this.toaster.show(errorMessage, "error");
       }
     });
   }

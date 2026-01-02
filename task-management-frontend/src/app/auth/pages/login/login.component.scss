@@ -29,7 +29,7 @@ input:focus {
   width: 100%;          /* full width of card */
   height: 46px;
   background-color: var(--primary);
-  color: #fff;
+  color: var(--card-bg);
   border: none;
   border-radius: 10px;
   font-size: 14px;

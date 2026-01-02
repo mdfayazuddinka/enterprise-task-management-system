@@ -33,7 +33,7 @@
         *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid">
         Password does not meet criteria
       </small>
-    <ul class="password-requirements grid">
+    <ul class="password-requirements grid" *ngIf="signupForm.get('password')?.value">
       <li *ngFor="let criteria of passwordCriteria" [class.valid]="criteria.isValid">
         <span class="icon">
           <span *ngIf="criteria.isValid">✔</span>
@@ -42,10 +42,10 @@
         <span class="text">{{ criteria.label }}</span>
       </li>
     </ul>
-    <div class="strength-bar">
+    <div class="strength-bar" *ngIf="signupForm.get('password')?.value">
       <div class="strength-fill" [style.width.%]="passwordStrengthPercent"></div>
-      <span class="strength-text">
-        {{ passwordStrengthLabel }}
+      <span class="strength-text {{ passwordStrengthLabel }}">
+        Strength: {{ passwordStrengthLabel }}
       </span>
     </div>
   </div>
