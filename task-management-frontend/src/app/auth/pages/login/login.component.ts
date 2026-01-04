@@ -4,6 +4,7 @@ import { AuthService } from '../../auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { LoginRequestDto } from '../../dto/loginRequestDto';
 import { CommonModule } from '@angular/common';
+import { ToasterService } from '../../../core/toaster.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toaster: ToasterService,
   ) {}
 
   // ✅ Reactive Form
@@ -55,17 +57,18 @@ export class LoginComponent {
         if (token) {
           localStorage.setItem('accessToken', token);
         }
-        this.router.navigate(['/tasks']);
+        this.toaster.show("Login Successful", 'success')
+        this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         this.errorMessage =
           err.error?.message || 'Invalid username/email or password';
         this.loading = false;
+        this.toaster.show(this.errorMessage, 'error')
       }
     });
   }
 
-  /** DTO builder (enterprise pattern) */
   private buildLoginRequest(): LoginRequestDto {
     const { identifier, password } = this.loginForm.value;
 

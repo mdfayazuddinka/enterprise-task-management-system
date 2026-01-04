@@ -7,13 +7,13 @@ export const routes: Routes = [
       import('./auth/auth.routes').then(m => m.AUTH_ROUTES)
   },
   {
-    path: 'tasks',
+    path: '',
     loadChildren: () =>
-      import('./main/task.route').then(m => m.TASK_ROUTES)
+      import('./layout/navigation.route')
+        .then(m => m.NAVIGATION_ROUTES)
   },
   {
-    path: '',
-    redirectTo: 'auth/login',
-    pathMatch: 'full'
+    path: '**',
+    redirectTo: 'auth/login'
   }
 ];

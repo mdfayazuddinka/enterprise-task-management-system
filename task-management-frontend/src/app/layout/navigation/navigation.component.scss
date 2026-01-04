@@ -1,0 +1,36 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: var(--text-secondary);
+  overflow: hidden;
+}
+
+/* Top navigation bar */
+app-top-nav {
+  width: 100%;
+  flex-shrink: 0;
+}
+
+/* Main area: sidebar + content */
+.main {
+  display: flex;
+  flex: 1; /* take remaining height */
+  min-height: 0;
+}
+
+/* Sidebar */
+app-side-bar {
+  width: 220px; /* typical sidebar width */
+  background-color: var(--bg-sidebar);
+  border-right: 1px solid var(--border-default);
+  padding: 20px;
+}
+
+/* Content area (router outlet container) */
+.content {
+  flex: 1; /* fills remaining width */
+  padding: 20px;
+  background-color: var(--bg-app);
+  overflow-y: auto; /* scroll if content is long */
+}

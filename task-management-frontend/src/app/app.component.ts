@@ -18,11 +18,11 @@ export class AppComponent {
   constructor(private theme: ThemeService) {}
   
 
-  get isDark() {
-    return this.theme.isDark();
-  }
+  // get isDark() {
+  //   return this.theme.isDark();
+  // }
 
-  toggleTheme() {
-    this.theme.toggleTheme();
-  }
+  // toggleTheme() {
+  //   this.theme.toggleTheme();
+  // }
 }

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+     fill="none" stroke="#000000" stroke-width="2"
+     stroke-linecap="round" stroke-linejoin="round">
+  <!-- trend line -->
+  <polyline points="3 17 9 11 13 15 20 8"/>
+  <!-- arrow head -->
+  <polyline points="20 8 20 13"/>
+  <polyline points="20 8 15 8"/>
+</svg>

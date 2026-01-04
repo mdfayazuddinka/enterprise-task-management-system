@@ -1,0 +1,158 @@
+.top-nav {
+  height: 64px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 0 20px;
+  background-color: var(--bg-nav);
+  border-bottom: 1px solid var(--border-default);
+}
+
+/* LEFT */
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-self: start;
+}
+
+
+.app-title {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* CENTER */
+.nav-center {
+  justify-self: center;
+}
+
+
+.search-input {
+  width: 360px;
+  height: 38px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid var(--search-border);
+  background: var(--search-bg);
+  font-size: 14px;
+  text-align: center;
+}
+
+.search-input:focus,
+.search-input:not(:placeholder-shown) {
+  text-align: left;
+}
+
+/* RIGHT */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-self: end;
+}
+
+.user-menu {
+  position: relative;
+}
+
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 20px;
+  border: 1px solid var(--icon-border);
+  background: transparent;
+  padding-bottom: 5px;
+  align-items: center;
+}
+
+.user-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: var(--avatar-bg);
+  color: var(--avatar-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.user-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 18px);
+  width: 220px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  padding: 12px;
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 1000;
+}
+
+.user-menu:hover .user-dropdown {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.user-meta {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* Logout */
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  border: none;
+  background: none;
+  font-size: 13px;
+  color: var(--form-error);
+  cursor: pointer;
+  padding: 6px 0;
+  text-align: left;
+}
+
+.logout-btn:hover .logout-lock {
+  opacity: 1;
+}
+
+.lock-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.theme-toggle {
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}

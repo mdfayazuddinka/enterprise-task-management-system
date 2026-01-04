@@ -28,6 +28,44 @@
   --form-error: #ff4d4f;
   --sign-in-wrapper: 0 4px 12px rgba(0,0,0,0.2);
   --form-control-select-focus : 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+  --logo-bg: #2563eb;
+  --logo-check-color: #020617;
+  --nav-bg: #ffffff;
+  --nav-border: #e5e7eb;
+  --text-primary: #111827;
+  --search-bg: #f9fafb;
+  --search-border: #e5e7eb;
+  --icon-border: #e5e7eb;
+  --bg-app: #f8fafc;        /* MAIN background (very light grey) */
+  --bg-nav: #f8fafc;        /* Navbar background */
+  --bg-sidebar: #ffffff;   /* Sidebar slightly whiter */
+
+  /* Cards */
+  --bg-card: #ffffff;
+
+  /* Borders */
+  --border-default: #e5e7eb;
+
+  /* Text */
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --bg-sidebar: #ffffff;
+  --border-default: #e5e7eb;
+
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+
+  --nav-hover: #f1f5f9;
+  --nav-active-bg: #e0e7ff;
+  --nav-active-text: #1d4ed8;
+  --avatar-bg: #e0e7ff;   /* soft indigo */
+  --avatar-text: #1d4ed8;
+
+  --sidebar-bg: #f8fafc;
+  --sidebar-hover: rgba(0,0,0,0.04);
+  --text-secondary: #475569;
+  --tooltip-bg: #0f172a;
+  --tooltip-text: #f8fafc;
 }
 
 /* Dark Theme Overrides */
@@ -46,13 +84,47 @@
   --sign-in-wrapper: 0 4px 12px rgba(0,0,0,0.2);
   --form-control-select-focus : 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
   --strength-fill-medium: #f0ad4e;
+  --logo-bg: #3b82f6;
+  --logo-check-color: #e5e7eb;
+  --nav-bg: #020617;
+  --nav-border: #1e293b;
+  --text-primary: #e5e7eb;
+  --search-bg: #020617;
+  --search-border: #1e293b;
+  --icon-border: #1e293b;
+  --bg-app: #020617;
+  --bg-nav: #020617;
+  --bg-sidebar: #020617;
+  --bg-card: #020617;
+  --border-default: #1e293b;
+  --text-primary: #e5e7eb;
+  --text-secondary: #94a3b8;
+  --bg-sidebar: #020617;
+  --border-default: #1e293b;
+
+  --text-primary: #e5e7eb;
+  --text-secondary: #94a3b8;
+
+  --nav-hover: #020617;
+  --nav-active-bg: #1e293b;
+  --nav-active-text: #93c5fd;
+  --avatar-bg: #1e293b;
+  --avatar-text: #93c5fd;
+  --nav-text: #94a3b8;
+  --sidebar-bg: #020617;
+  --sidebar-hover: rgba(255,255,255,0.06);
+
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+
+  --tooltip-bg: #0f172a;
+  --tooltip-text: #f8fafc;
 }
 
 html, body {
   height: 100%;
   margin: 0;
   font-family: 'Inter', system-ui, sans-serif;
-
   background: var(--page-bg); /* PAGE background */
   color: var(--text-primary);
 }
@@ -128,3 +200,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   --btn-text: #fff;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;   /* 🔑 very important */
+}

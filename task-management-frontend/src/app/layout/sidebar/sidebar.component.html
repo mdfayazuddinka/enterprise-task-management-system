@@ -1,0 +1,89 @@
+<aside class="sidebar" [class.collapsed]="collapsed">
+
+  <!-- Toggle -->
+  <div class="sidebar-toggle" (click)="toggleSidebar()">
+    <svg width="18" height="18" viewBox="0 0 24 24">
+      <path d="M3 12h18M3 6h18M3 18h18"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <!-- PRIMARY NAV -->
+  <div class="nav-section">
+    <a class="nav-item" [routerLink]="['/dashboard']">
+      <img [src]="isDark ? 'assets/icons/dark/dashboard-dark.svg' : 'assets/icons/light/dashboard-light.svg'" class="nav-icon" />
+      <span class="nav-text">Dashboard</span>
+      <span class="tooltip-custom">Dashboard</span>
+    </a>
+
+    <a class="nav-item" [routerLink]="['/analytics']">
+      <img [src]="isDark ? 'assets/icons/dark/analytics-dark.svg' : 'assets/icons/light/analytics-light.svg'" class="nav-icon" />
+      <span class="nav-text">Analytics</span>
+      <span class="tooltip-custom">Analytics</span>
+    </a>
+
+    <a class="nav-item" [routerLink]="['/teams']">
+      <img [src]="isDark ? 'assets/icons/dark/teams-dark.svg' : 'assets/icons/light/teams-light.svg'" class="nav-icon" />
+      <span class="nav-text">Teams</span>
+      <span class="tooltip-custom">Teams</span>
+    </a>
+  </div>
+
+  <!-- DIVIDER -->
+  <div class="sidebar-divider"></div>
+
+  <!-- PROJECTS -->
+  <div class="nav-section">
+
+    <div class="nav-item add-project" (click)="addProject()">
+      <img [src]="isDark ? 'assets/icons/dark/add-project-dark.svg' : 'assets/icons/light/add-project-light.svg'" class="nav-icon">
+      <span class="nav-text">Add Project</span>
+      <span class="tooltip-custom">Add Project</span>
+    </div>
+
+    <div class="nav-item projects" (click)="toggleProjects()">
+      <img [src]="isDark ? 'assets/icons/dark/project-dark.svg' : 'assets/icons/light/project-light.svg'" class="nav-icon" />
+      <span class="nav-text">Projects</span>
+
+      <svg class="caret" viewBox="0 0 24 24" *ngIf="!collapsed" [class.open]="projectsOpen">
+        <path d="M6 9l6 6 6-6"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"/>
+      </svg>
+
+      <span class="tooltip-custom">Projects</span>
+    </div>
+
+    <!-- Project List -->
+    <div class="projects-list" *ngIf="projectsOpen && !collapsed">
+      <a class="project-item"
+         *ngFor="let project of visibleProjects">
+        {{ project }}
+      </a>
+
+      <div class="project-more"
+           *ngIf="hasMoreProjects"
+           (click)="$event.stopPropagation(); openProjectsModal()">
+        + More projects
+      </div>
+    </div>
+  </div>
+
+  <!-- DIVIDER -->
+  <div class="sidebar-divider"></div>
+
+  <!-- SETTINGS -->
+  <!-- <div class="nav-section">
+    <a class="nav-item">
+      <img [src]="isDark ? 'assets/icons/dark/settings-dark.svg' : 'assets/icons/light/settings-light.svg'" class="nav-icon" />
+      <span class="nav-text">Settings</span>
+      <span class="tooltip-custom">Settings</span>
+    </a>
+  </div> -->
+
+</aside>
