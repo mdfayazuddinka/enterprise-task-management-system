@@ -17,4 +17,5 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 
-CMD sh -c "java -jar target/*.jar & nginx -g 'daemon off;'"
+CMD sh -c "java -jar target/*.jar --server.port=$PORT & nginx -g 'daemon off;'"
+

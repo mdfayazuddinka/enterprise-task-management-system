@@ -22,6 +22,10 @@ jobs:
         working-directory: task-management-backend
         run: mvn clean package -DskipTests
 
-      - name: Trigger Render Deploy
+      - name: Trigger Render deploy
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
         run: |
           echo "Render will pull latest code and deploy"
