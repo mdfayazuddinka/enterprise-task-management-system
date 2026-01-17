@@ -18,7 +18,8 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Build JAR
+      - name: build 
+        working-directory: task-management-backend
         run: mvn clean package -DskipTests
 
       - name: Trigger Render Deploy
