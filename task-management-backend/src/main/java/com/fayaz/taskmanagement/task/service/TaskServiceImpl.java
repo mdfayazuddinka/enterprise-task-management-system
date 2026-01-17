@@ -21,14 +21,13 @@ import org.springframework.stereotype.Service;
 
 import com.fayaz.taskmanagement.CustomException.TaskGenericException;
 import com.fayaz.taskmanagement.CustomException.TaskNotFoundException;
+import com.fayaz.taskmanagement.task.converter.TaskCreationDtoToEntity;
 import com.fayaz.taskmanagement.task.converter.TaskEntityToDto;
 import com.fayaz.taskmanagement.task.dto.TaskCreationDto;
 import com.fayaz.taskmanagement.task.dto.TaskDto;
 import com.fayaz.taskmanagement.task.dto.TaskUpsertDto;
 import com.fayaz.taskmanagement.task.entity.TaskEntity;
 import com.fayaz.taskmanagement.task.repository.TaskRepository;
-import com.fayaz.taskmanagement.utils.SequenceEnum;
-import com.fayaz.taskmanagement.utils.SequenceGeneratorService;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -39,15 +38,7 @@ public class TaskServiceImpl implements TaskService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    @Autowired
-    private SequenceGeneratorService sequenceGeneratorService;
-
-    public Page<TaskEntity> getAllTasks(
-            int page,
-            String assignedTo,
-            String status,
-            String name,
-            String sortOrder) {
+    public Page<TaskEntity> getAllTasks(int page, String assignedTo, String status, String name, String sortOrder) {
 
         List<AggregationOperation> operations = new ArrayList<>();
         List<Criteria> criteriaList = new ArrayList<>();
@@ -91,21 +82,8 @@ public class TaskServiceImpl implements TaskService {
 
 
     public TaskDto createTask(TaskCreationDto task) {
-        String taskId = String.format("TSK-%05d", sequenceGeneratorService.getNextSequence(
-            SequenceEnum.TASK_SEQUENCE.getSequenceName()));
-        TaskEntity taskEntity = TaskEntity.builder()
-        .title(task.getTitle())
-        .taskId(taskId)
-        .description(task.getDescription())
-        .createdBy(task.getCreatedBy())
-        .assignedTo(task.getAssignedTo())
-        .comments(task.getComments())
-        .status(task.getStatus())
-        .priority(task.getPriority())
-        .createdDate(task.getCreatedDate())
-        .dueDate(task.getDueDate())
-        .projectId(task.getProjectId()).build();
-        TaskEntity savedEntity = save(taskEntity);
+        TaskEntity convertedEntity = TaskCreationDtoToEntity.convert(task);
+        TaskEntity savedEntity = save(convertedEntity);
         return TaskEntityToDto.convert(savedEntity);
     }
 

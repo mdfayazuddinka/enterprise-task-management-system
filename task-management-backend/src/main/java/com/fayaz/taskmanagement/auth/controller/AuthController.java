@@ -14,6 +14,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +31,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/signup")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<SignUpResponseDto> signup(
             @Valid @RequestBody SignUpRequestDto request) {
 

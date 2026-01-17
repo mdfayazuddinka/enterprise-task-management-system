@@ -9,8 +9,6 @@ import com.fayaz.taskmanagement.task.entity.TaskEntity;
 
 public interface TaskRepository extends MongoRepository<TaskEntity, String> {
 
-    List<TaskEntity> findByCreatedBy(String createdBy);
-
     List<TaskEntity> findByAssignedTo(String assignedTo);
 
     Optional<TaskEntity> findByTaskId(String taskId);

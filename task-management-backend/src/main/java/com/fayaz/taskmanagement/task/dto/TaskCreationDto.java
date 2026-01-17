@@ -13,7 +13,6 @@ import lombok.Data;
 public class TaskCreationDto {
     private String title;
     private String description;
-    private String createdBy;
     private String assignedTo;
     private PriorityEnum priority;
     private StatusEnum status;

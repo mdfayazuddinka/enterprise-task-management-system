@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.fayaz.taskmanagement.task.enums.PriorityEnum;
 import com.fayaz.taskmanagement.task.enums.StatusEnum;
+import com.fayaz.taskmanagement.utils.AuditDto;
 
 import lombok.Builder;
 import lombok.Data;
@@ -16,10 +17,9 @@ public class TaskDto {
     private String description;
     private PriorityEnum priority;
     private StatusEnum status;
-    private String createdBy;
-    private Date createdDate;
     private Date dueDate;
     private String assignedTo;
     private String comments;
     private String projectId;
+    private AuditDto audit;
 }

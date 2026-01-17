@@ -13,14 +13,13 @@ public class TaskEntityToDto {
                 .id(taskEntity.get_id())
                 .title(taskEntity.getTitle())
                 .description(taskEntity.getDescription())
-                .createdBy(taskEntity.getCreatedBy())
                 .assignedTo(taskEntity.getAssignedTo())
                 .priority(taskEntity.getPriority())
-                .createdDate(taskEntity.getCreatedDate())
                 .dueDate(taskEntity.getDueDate())
                 .comments(taskEntity.getComments())
                 .status(taskEntity.getStatus())
                 .projectId(taskEntity.getProjectId())
+                .audit(taskEntity.getAudit())
                 .build();
     }
 }
