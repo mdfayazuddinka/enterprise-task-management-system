@@ -18,6 +18,9 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     private ProjectRepository projectRepository;
 
+    @Autowired
+    private ProjectCreationDtoToEntity projectCreationDtoToEntity;
+
     @Override
     public List<ProjectDto> getAllProjects() {
         return projectRepository.findAll()
@@ -28,7 +31,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public ProjectDto addProject(ProjectCreationDto projectCreationDto) {
-        ProjectEntity projectEntity = ProjectCreationDtoToEntity.convert(projectCreationDto);
+        ProjectEntity projectEntity = projectCreationDtoToEntity.convert(projectCreationDto);
         ProjectEntity savedEntity = save(projectEntity);
         return ProjectEntityToDto.convert(savedEntity);
     }

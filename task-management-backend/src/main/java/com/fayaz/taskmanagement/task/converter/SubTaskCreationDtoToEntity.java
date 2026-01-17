@@ -1,4 +1,4 @@
-package com.fayaz.taskmanagement.project.converter;
+package com.fayaz.taskmanagement.task.converter;
 
 import java.util.Date;
 
@@ -9,50 +9,47 @@ import org.springframework.stereotype.Component;
 import com.fayaz.taskmanagement.auth.entity.OwnerEntity;
 import com.fayaz.taskmanagement.auth.entity.UserEntity;
 import com.fayaz.taskmanagement.auth.service.AuthService;
-import com.fayaz.taskmanagement.project.dto.ProjectCreationDto;
-import com.fayaz.taskmanagement.project.entity.ProjectEntity;
+import com.fayaz.taskmanagement.task.dto.SubTaskCreationDto;
+import com.fayaz.taskmanagement.task.entity.SubTaskEntity;
 import com.fayaz.taskmanagement.utils.AuditDto;
 import com.fayaz.taskmanagement.utils.SequenceEnum;
 import com.fayaz.taskmanagement.utils.SequenceGeneratorService;
 
 @Component
-public class ProjectCreationDtoToEntity {
+public class SubTaskCreationDtoToEntity {
 
     private final SequenceGeneratorService sequenceGeneratorService;
-     private final AuthService authService;
+    private final AuthService authService;
 
-    public ProjectCreationDtoToEntity(SequenceGeneratorService sequenceGeneratorService, AuthService authService) {
+    public SubTaskCreationDtoToEntity(SequenceGeneratorService sequenceGeneratorService, AuthService authService) {
         this.sequenceGeneratorService = sequenceGeneratorService;
         this.authService = authService;
     }
 
-    public ProjectEntity convert(ProjectCreationDto projectCreationDto) {
-        if (projectCreationDto == null) {
+    public SubTaskEntity convert(SubTaskCreationDto subTaskCreationDto) {
+        if (subTaskCreationDto == null) {
             return null;
         }
 
-         ProjectEntity projectEntity = ProjectEntity.builder()
-                .name(projectCreationDto.getName())
-                .category(projectCreationDto.getCategory())
-                .projectCode(getProjectCode())
-                .dueDate(projectCreationDto.getDueDate())
-                .startDate(projectCreationDto.getStartDate())
-                .priority(projectCreationDto.getPriority())
-                .subCategory(projectCreationDto.getSubCategory())
-                .type(projectCreationDto.getType())
-                .status(projectCreationDto.getStatus())
-                .audit(getAuditDto(projectCreationDto))
+        return SubTaskEntity.builder()
+                .title(subTaskCreationDto.getTitle())
+                .subTaskId(getSubTaskId())
+                .description(subTaskCreationDto.getDescription())
+                .assignedTo(subTaskCreationDto.getAssignedTo())
+                .status(subTaskCreationDto.getStatus())
+                .priority(subTaskCreationDto.getPriority())
+                .dueDate(subTaskCreationDto.getDueDate())
+                .parentTaskId(subTaskCreationDto.getParentTaskId())
+                .audit(getAuditDto(subTaskCreationDto))
                 .build();
-
-        return projectEntity;
     }
 
-    private String getProjectCode() {
-        return String.format("PJT-%05d", sequenceGeneratorService.getNextSequence(
-                SequenceEnum.PROJECT_SEQUENCE.getSequenceName()));
+    private String getSubTaskId() {
+        return String.format("SUB-%05d", 
+            sequenceGeneratorService.getNextSequence(SequenceEnum.SUB_TASK_SEQUENCE.getSequenceName()));
     }
 
-    private AuditDto getAuditDto(ProjectCreationDto projectCreationDto) {
+    private AuditDto getAuditDto(SubTaskCreationDto subTaskCreationDto) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserEntity userEntity = authService.getUserById(auth.getPrincipal().toString()).get();
         OwnerEntity ownerEntity = OwnerEntity.builder()
@@ -69,4 +66,5 @@ public class ProjectCreationDtoToEntity {
                 .lastModifiedDate(new Date())
                 .build();
     }
+    
 }

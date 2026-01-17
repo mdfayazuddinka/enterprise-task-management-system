@@ -2,10 +2,11 @@ package com.fayaz.taskmanagement.task.converter;
 
 import java.util.Date;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 
+import com.fayaz.taskmanagement.auth.entity.OwnerEntity;
 import com.fayaz.taskmanagement.auth.entity.UserEntity;
 import com.fayaz.taskmanagement.auth.service.AuthService;
 import com.fayaz.taskmanagement.task.dto.TaskCreationDto;
@@ -14,15 +15,18 @@ import com.fayaz.taskmanagement.utils.AuditDto;
 import com.fayaz.taskmanagement.utils.SequenceEnum;
 import com.fayaz.taskmanagement.utils.SequenceGeneratorService;
 
+@Component
 public class TaskCreationDtoToEntity {
 
-    @Autowired
-    private static SequenceGeneratorService sequenceGeneratorService;
+    private final SequenceGeneratorService sequenceGeneratorService;
+    private final AuthService authService;
 
-    @Autowired
-    private static AuthService authService;
+    public TaskCreationDtoToEntity(SequenceGeneratorService sequenceGeneratorService, AuthService authService) {
+        this.sequenceGeneratorService = sequenceGeneratorService;
+        this.authService = authService;
+    }
 
-    public static TaskEntity convert(TaskCreationDto taskCreationDto) {
+    public TaskEntity convert(TaskCreationDto taskCreationDto) {
         if (taskCreationDto == null) {
             return null;
         }
@@ -37,22 +41,29 @@ public class TaskCreationDtoToEntity {
                 .priority(taskCreationDto.getPriority())
                 .dueDate(taskCreationDto.getDueDate())
                 .projectId(taskCreationDto.getProjectId())
-                .audit(getAuditDto())
+                .audit(getAuditDto(taskCreationDto))
                 .build();
     }
 
-    private static String getTaskId() {
-        return String.format("TSK-%05d", sequenceGeneratorService.getNextSequence(
-                SequenceEnum.TASK_SEQUENCE.getSequenceName()));
+    private String getTaskId() {
+        return String.format("TSK-%05d", 
+            sequenceGeneratorService.getNextSequence(SequenceEnum.TASK_SEQUENCE.getSequenceName()));
     }
 
-    private static AuditDto getAuditDto() {
+    private AuditDto getAuditDto(TaskCreationDto taskCreationDto) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserEntity userEntity = authService.getUserByName(auth.getName()).get();
+        UserEntity userEntity = authService.getUserById(auth.getPrincipal().toString()).get();
+        OwnerEntity ownerEntity = OwnerEntity.builder()
+                .userId(userEntity.getUserId())
+                .userName(userEntity.getUserName())
+                .roles(userEntity.getRole())
+                .email(userEntity.getEmail())
+                .build();
+
         return AuditDto.builder()
-                .owner(userEntity)
-                .createdDate(new Date())
-                .lastModifiedBy(userEntity)
+                .owner(ownerEntity)
+                .createdDate(taskCreationDto.getCreatedDate() != null ? taskCreationDto.getCreatedDate() : new Date())
+                .lastModifiedBy(ownerEntity)
                 .lastModifiedDate(new Date())
                 .build();
     }

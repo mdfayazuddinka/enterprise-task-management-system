@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { API_ENDPOINTS } from '../core/api-endpoints';
+import { API_ENDPOINTS } from '../core/api/api-endpoints';
 import { LoginRequestDto } from './dto/loginRequestDto';
 import { SignupRequestDto } from './dto/signupRequestDto';
 import { SignUpResponseDto } from './dto/signUpResponseDto';

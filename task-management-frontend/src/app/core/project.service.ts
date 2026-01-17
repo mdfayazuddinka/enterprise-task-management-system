@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { ProjectCreationDto, ProjectDto } from '../features/enums/project';
 import { HttpClient } from '@angular/common/http';
-import { API_ENDPOINTS } from './api-endpoints';
+import { API_ENDPOINTS } from './api/api-endpoints';
 
 
 @Injectable({ providedIn: 'root' })

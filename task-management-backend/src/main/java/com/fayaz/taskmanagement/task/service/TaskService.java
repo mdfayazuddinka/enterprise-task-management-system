@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 
+import com.fayaz.taskmanagement.task.dto.SubTaskCreationDto;
+import com.fayaz.taskmanagement.task.dto.SubTaskDto;
 import com.fayaz.taskmanagement.task.dto.TaskCreationDto;
 import com.fayaz.taskmanagement.task.dto.TaskDto;
 import com.fayaz.taskmanagement.task.dto.TaskUpsertDto;
@@ -15,6 +17,8 @@ public interface TaskService {
     Page<TaskEntity> getAllTasks(int page, String assignedTo, String status, String title, String sortOrder);
 
     TaskDto createTask(TaskCreationDto task);
+
+    SubTaskDto createSubTask(SubTaskCreationDto subTask);
 
     Optional<TaskDto> getTaskById(String taskId);
 

@@ -62,7 +62,7 @@ public class AuthService {
         .userId(userId)
         .email(request.getEmail())
         .password(encodedPassword)
-        .role(request.getRole() == null ? List.of(RoleEnum.ROLE_USER) : request.getRole())
+        .role(request.getRole() == null ? List.of(RoleEnum.DEVELOPER) : request.getRole())
         .build();
     UserEntity savedEntity = userRepository.save(user);
     SignUpResponseDto responseDto = SignUpResponseDto.builder()

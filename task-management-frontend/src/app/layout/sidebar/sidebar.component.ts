@@ -52,7 +52,11 @@ export class SidebarComponent implements OnInit {
     this.projectService.getAllProjects().subscribe({
       next: (response) => {
         this.projects = response
-        this.projectService.setSelectedProject(this.projects[0])
+        if (this.projects && this.projects.length > 0) { 
+          this.projectService.setSelectedProject(this.projects[0]); 
+        } else { 
+          console.log("No projects available"); 
+        }
       },
       error: (error) => {
         console.log("error: ", error)

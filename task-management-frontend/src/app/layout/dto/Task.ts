@@ -1,7 +1,33 @@
-import { ProjectPriority } from "../../features/enums/project";
+export enum TaskStatus {
+  TO_DO = 'TO_DO',
+  IN_PROGRESS = 'IN_PROGRESS',
+  COMPLETED = 'COMPLETED',
+  BLOCKED = 'BLOCKED',
+  QA_TESTING = 'QA_TESTING',
+}
 
-export type TaskStatus = 'PENDING' | 'IN_PROGRESS' | 'COMPLETED';
-export type TaskPriority = 'LOW' | 'NORMAL' | 'HIGH';
+export enum TaskPriority {
+  LOW = 'LOW',
+  MEDIUM = 'MEDIUM',
+  HIGH = 'HIGH',
+}
+
+export enum TaskType {
+  FEATURE = 'FEATURE',
+  BUG = 'BUG',
+  DEFECT = 'DEFECT',
+  SUBTASK = 'SUBTASK',
+}
+
+export enum TaskLabel {
+  UI = 'UI',
+  Backend = 'Backend',
+  Database = 'Database',
+  API = 'API',
+  Frontend = 'Frontend',
+  Technical = 'Technical',
+}
+
 
 export interface TaskDto {
   id: string;
@@ -22,9 +48,19 @@ export interface TaskCreationDto {
   priority: TaskPriority;
   status: TaskStatus;
   assignedTo: string;
-  createdBy: string;
   createdDate: string;
   dueDate: string;
   description?: string;
-  comment?: string;
+  comments?: string;
+}
+
+export interface SubTaskCreationDto {
+  title: string;
+  description: string;
+  assignedTo: string;
+  status: TaskStatus;
+  dueDate: string;
+  priority: TaskPriority;
+  parentTaskId: string;
+  type: TaskType;
 }

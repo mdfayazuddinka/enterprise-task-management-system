@@ -1,6 +1,10 @@
 package com.fayaz.taskmanagement.auth;
 
 public enum RoleEnum {
-    ROLE_ADMIN,
-    ROLE_USER
+    ADMIN,
+    PROJECT_MANAGER,
+    DEVELOPER,
+    CLIENT,
+    QA_TESTER,
+    VIEWER
 }

@@ -20,7 +20,7 @@ public class ProjectEntityToDto {
             .status(projectEntity.getStatus())
             .dueDate(projectEntity.getDueDate())
             .type(projectEntity.getType())
+            .audit(projectEntity.getAudit())
             .build();
     }
-    
 }

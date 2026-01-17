@@ -31,7 +31,7 @@ export class AddProjectComponent {
     name: '',
     type: '' as ProjectType | '',
     priority: ProjectPriority.LOW,
-    status: ProjectStatus.PENDING,
+    status: ProjectStatus.TO_DO,
     startDate: '',
     dueDate: ''
   };
@@ -53,8 +53,9 @@ export class AddProjectComponent {
 
   submit() {
     this.projectService.createProject(this.project).subscribe({
-      next: () => {
+      next: (project) => {
         this.closeModal();
+        this.projectService.setSelectedProject(project);
       },
       error: (err) => {
         console.log("error: ", err)

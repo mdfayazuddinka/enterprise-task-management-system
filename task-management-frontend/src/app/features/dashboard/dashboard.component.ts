@@ -48,6 +48,7 @@ export class DashboardComponent implements OnInit {
   setSelectedProject() {
     this.projectService.project$
     .pipe(filter((project): project is ProjectDto => project !== null)).subscribe(project => {
+      console.log("selected project:", project);
       this.selectedProject = project;
       this.isProjectAvailable = true;
       this.getTasksByProjectId(project);
@@ -58,7 +59,7 @@ export class DashboardComponent implements OnInit {
     this.taskService.getTasksByProjectId(projectDto.projectCode).subscribe({
       next: (tasksData) => {
         this.Tasks = tasksData;
-        this.pendingTasks = tasksData.filter(t => t.status === 'PENDING');
+        this.pendingTasks = tasksData.filter(t => t.status === 'TO_DO');
         this.inProgressTasks = tasksData.filter(t => t.status === 'IN_PROGRESS');
         this.completedTasks = tasksData.filter(t => t.status === 'COMPLETED');
         this.canShowTasks = this.Tasks.length > 0;

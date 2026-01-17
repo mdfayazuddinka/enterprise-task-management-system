@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TaskCreationDto, TaskDto } from '../layout/dto/Task';
-import { API_ENDPOINTS } from '../core/api-endpoints';
+import { API_ENDPOINTS } from '../core/api/api-endpoints';
 import { TaskResponseDto } from '../layout/dto/TaskResponseDto';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';

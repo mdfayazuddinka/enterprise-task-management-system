@@ -21,12 +21,18 @@ import org.springframework.stereotype.Service;
 
 import com.fayaz.taskmanagement.CustomException.TaskGenericException;
 import com.fayaz.taskmanagement.CustomException.TaskNotFoundException;
+import com.fayaz.taskmanagement.task.converter.SubTaskCreationDtoToEntity;
+import com.fayaz.taskmanagement.task.converter.SubTaskEntityToDto;
 import com.fayaz.taskmanagement.task.converter.TaskCreationDtoToEntity;
 import com.fayaz.taskmanagement.task.converter.TaskEntityToDto;
+import com.fayaz.taskmanagement.task.dto.SubTaskCreationDto;
+import com.fayaz.taskmanagement.task.dto.SubTaskDto;
 import com.fayaz.taskmanagement.task.dto.TaskCreationDto;
 import com.fayaz.taskmanagement.task.dto.TaskDto;
 import com.fayaz.taskmanagement.task.dto.TaskUpsertDto;
+import com.fayaz.taskmanagement.task.entity.SubTaskEntity;
 import com.fayaz.taskmanagement.task.entity.TaskEntity;
+import com.fayaz.taskmanagement.task.repository.SubTaskRepository;
 import com.fayaz.taskmanagement.task.repository.TaskRepository;
 
 @Service
@@ -36,7 +42,16 @@ public class TaskServiceImpl implements TaskService {
     private TaskRepository taskRepository;
 
     @Autowired
+    private SubTaskRepository subTaskRepository;
+
+    @Autowired
     private MongoTemplate mongoTemplate;
+
+    @Autowired
+    private TaskCreationDtoToEntity taskCreationDtoToEntity;
+    
+    @Autowired
+    private SubTaskCreationDtoToEntity subTaskCreationDtoToEntity;
 
     public Page<TaskEntity> getAllTasks(int page, String assignedTo, String status, String name, String sortOrder) {
 
@@ -82,9 +97,15 @@ public class TaskServiceImpl implements TaskService {
 
 
     public TaskDto createTask(TaskCreationDto task) {
-        TaskEntity convertedEntity = TaskCreationDtoToEntity.convert(task);
+        TaskEntity convertedEntity = taskCreationDtoToEntity.convert(task);
         TaskEntity savedEntity = save(convertedEntity);
         return TaskEntityToDto.convert(savedEntity);
+    }
+
+    public SubTaskDto createSubTask(SubTaskCreationDto subTask) {
+        SubTaskEntity convertedEntity = subTaskCreationDtoToEntity.convert(subTask);
+        SubTaskEntity savedEntity = subTaskRepository.save(convertedEntity);
+        return SubTaskEntityToDto.convert(savedEntity);
     }
 
     public List<TaskDto> getTasksByProjectId(String projectId) {

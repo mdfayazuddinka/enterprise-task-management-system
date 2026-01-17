@@ -81,15 +81,15 @@ export enum ProjectType {
 export enum ProjectPriority {
   LOW = 'LOW',
   HIGH = 'HIGH',
-  BLOCKED = 'BLOCKED'
+  MEDIUM = 'MEDIUM'
 }
 
 // STATUS
 export enum ProjectStatus {
-  PENDING = 'PENDING',
-  IN_PROGRESS = 'IN_PROGRESS',
+  TO_DO = 'TO DO',
+  IN_PROGRESS = 'IN PROGRESS',
   COMPLETED = 'COMPLETED',
-  ON_HOLD = 'ON_HOLD'
+  ON_HOLD = 'ON HOLD'
 }
 
 export interface ProjectCreationDto {

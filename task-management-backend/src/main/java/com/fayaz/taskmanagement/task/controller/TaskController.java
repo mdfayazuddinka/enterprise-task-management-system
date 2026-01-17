@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fayaz.taskmanagement.task.dto.SubTaskCreationDto;
+import com.fayaz.taskmanagement.task.dto.SubTaskDto;
 import com.fayaz.taskmanagement.task.dto.TaskCreationDto;
 import com.fayaz.taskmanagement.task.dto.TaskDto;
 import com.fayaz.taskmanagement.task.dto.TaskUpsertDto;
@@ -49,9 +51,16 @@ public class TaskController {
     }
 
     @PostMapping("/add-task")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN', 'PROJECT_MANAGER')")
     public ResponseEntity<TaskDto> createTask(@RequestBody TaskCreationDto task) {
         TaskDto responseTaskDto = taskService.createTask(task);
+        return ResponseEntity.ok(responseTaskDto);
+    }
+
+    @PostMapping("/add-subtask")
+    @PreAuthorize("hasRole('ADMIN', 'PROJECT_MANAGER')")
+    public ResponseEntity<SubTaskDto> createSubTask(@RequestBody SubTaskCreationDto subTask) {
+        SubTaskDto responseTaskDto = taskService.createSubTask(subTask);
         return ResponseEntity.ok(responseTaskDto);
     }
 

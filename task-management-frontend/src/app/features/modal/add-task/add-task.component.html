@@ -23,13 +23,22 @@
             <small class="error">Project is required</small>
           </div>
         </div>
+        <div class="form-control text-truncate">
+          <label for="type">Type</label>
+          <select id="type" formControlName="type">
+            <option *ngFor="let type of taskTypes" [value]="type">{{ type }}</option>
+          </select>
+          <div *ngIf="taskForm.get('type')?.invalid && taskForm.get('type')?.touched">
+            <small class="error">Type is required</small>
+          </div>
+        </div>
       </div>
 
       <div class="form-section">
         <div class="form-control">
           <label>Priority</label>
           <select formControlName="priority">
-            <option *ngFor="let priority of projectPriority" [value]="priority">{{ priority }}</option>
+            <option *ngFor="let priority of taskPriorities" [value]="priority">{{ priority }}</option>
           </select>
           <div *ngIf="taskForm.get('priority')?.invalid && taskForm.get('priority')?.touched">
             <small class="error">Priority is required</small>
@@ -69,7 +78,7 @@
         <div class="form-control">
           <label for="status">Status</label>
           <div class="radio-group">
-            <label *ngFor="let status of projectStatuses">
+            <label *ngFor="let status of taskStatuses">
               <input type="radio" [value]="status" formControlName="status" />
               <span class="radio-button-text">{{ status }}</span>
             </label>

@@ -2,7 +2,7 @@ package com.fayaz.taskmanagement.utils;
 
 import java.util.Date;
 
-import com.fayaz.taskmanagement.auth.entity.UserEntity;
+import com.fayaz.taskmanagement.auth.entity.OwnerEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AuditDto {
-    private UserEntity owner;
+    private OwnerEntity owner;
     private Date createdDate;
     private Date lastModifiedDate;
-    private UserEntity lastModifiedBy;
+    private OwnerEntity lastModifiedBy;
 }

@@ -1,4 +1,8 @@
 export enum Role {
-    USER = 'ROLE_USER',
-    ADMIN = 'ROLE_ADMIN'
+    ADMIN = 'ADMIN',
+    PROJECT_MANAGER = 'PROJECT_MANAGER',
+    DEVELOPER = 'DEVELOPER',
+    CLIENT = 'CLIENT',
+    QA_TESTER = 'QA_TESTER',
+    VIEWER = 'VIEWER'
 }

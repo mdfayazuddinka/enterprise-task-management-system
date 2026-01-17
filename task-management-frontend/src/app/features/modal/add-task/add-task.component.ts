@@ -8,8 +8,9 @@ import { UserDto } from '../../../layout/dto/userDto';
 import { AuthService } from '../../../auth/auth.service';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TaskService } from '../../task.service';
-import { TaskCreationDto } from '../../../layout/dto/Task';
+import { TaskCreationDto, TaskPriority, TaskType } from '../../../layout/dto/Task';
 import { filter } from 'rxjs';
+import { TaskStatus } from '../../../layout/dto/Task';
 
 @Component({
   selector: 'app-add-task',
@@ -21,13 +22,12 @@ import { filter } from 'rxjs';
 export class AddTaskComponent implements OnInit {
   userInfo!: UserDto;
   projectsList!: ProjectDto[];
-  projectStatuses = Object.values(ProjectStatus);
-  projectPriority = Object.values(ProjectPriority);
+  taskStatuses = Object.values(TaskStatus);
+  taskPriorities = Object.values(TaskPriority);
+  taskTypes = Object.values(TaskType);
   usersList!: String[];
   taskCreationDto!: TaskCreationDto;
-  project = ''
-  
-
+  project = '';
   taskForm!: FormGroup;
 
   constructor(
@@ -50,9 +50,9 @@ export class AddTaskComponent implements OnInit {
 
     this.taskForm = this.fb.group({
       title: ['', Validators.required],
-      project: ['', Validators.required],
-      priority: [ProjectPriority.LOW, Validators.required],
-      status: [ProjectStatus.PENDING, Validators.required],
+      type: ['', Validators.required],
+      priority: [TaskPriority.LOW, Validators.required],
+      status: [TaskStatus.TO_DO, Validators.required],
       assignedTo: ['', Validators.required],
       createdBy: [this.userInfo.userName],
       createdDate: [new Date().toISOString().split('T')[0], Validators.required],
