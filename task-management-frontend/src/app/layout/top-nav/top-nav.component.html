@@ -1,5 +1,5 @@
 <header class="top-nav">
-  <div class="nav-left" [routerLink]="['/dashboard']">
+  <div class="nav-left" [routerLink]="['/app', 'dashboard']">
     <app-logo></app-logo>
     <span class="app-title">Task Manager</span>
   </div>
@@ -33,7 +33,7 @@
     </div>
     
     <button class="theme-toggle" (click)="toggleTheme()">
-      🌙 / ☀️
+      <span class="toggle-icon">🌙 / ☀️</span>
     </button>
   </div>
 </header>

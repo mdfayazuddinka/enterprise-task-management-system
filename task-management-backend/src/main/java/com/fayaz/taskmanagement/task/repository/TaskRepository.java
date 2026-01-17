@@ -14,5 +14,9 @@ public interface TaskRepository extends MongoRepository<TaskEntity, String> {
     List<TaskEntity> findByAssignedTo(String assignedTo);
 
     Optional<TaskEntity> findByTaskId(String taskId);
+
+    List<TaskEntity> findByProjectId(String projectId);
+
+    
 }
 

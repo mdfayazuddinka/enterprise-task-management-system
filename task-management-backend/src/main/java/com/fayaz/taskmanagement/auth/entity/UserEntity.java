@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fayaz.taskmanagement.auth.RoleEnum;
-import com.fayaz.taskmanagement.utils.AuditDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,6 +31,4 @@ public class UserEntity {
     private String userName;
 
     private List<RoleEnum> role;
-
-    private AuditDto audit;
 }

@@ -1,0 +1,96 @@
+.backdrop {
+  position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); z-index: 1000;
+}
+
+.modal {
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  max-width: 95%;
+  transform: translate(-50%, -50%);
+  background: var(--card-bg);
+  border-radius: 12px;
+  position: fixed; z-index: 1001;
+  padding: 24px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.close-btn {
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+select {
+  background: var(--page-bg);
+  color: var(--text-primary);
+}
+
+input,
+select {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  font-size: 14px;
+}
+
+select:disabled {
+  background: var(--page-bg);
+  color: var(--text-primary);
+  cursor:not-allowed;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.cancel-btn {
+  background: var(--form-error);
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.primary-btn {
+  background: var(--logo-bg);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+:host {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+}

@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { TopNavComponent } from '../top-nav/top-nav.component';
 import { UserDto } from '../dto/userDto';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-navigation',
@@ -13,13 +14,13 @@ import { UserDto } from '../dto/userDto';
 })
 export class NavigationComponent implements OnInit {
   currentUser!: UserDto
+
+  constructor(private authService: AuthService){}
   ngOnInit(): void {
     this.getCurrentUserInfo()
   }
 
   private getCurrentUserInfo() {
-    const token = localStorage.getItem('accessToken');
-    const payload = JSON.parse(atob(token!.split('.')[1]));
-    this.currentUser = payload
+    this.currentUser = this.authService.getCurrentUserInfo()
   }
 }

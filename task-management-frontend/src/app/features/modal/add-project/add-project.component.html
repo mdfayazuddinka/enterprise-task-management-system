@@ -1,0 +1,107 @@
+<div class="backdrop" (click)="closeModal()"></div>
+
+<div class="modal">
+  <div class="modal-header">
+    <h3>Create New Project</h3>
+    <span class="close-btn" (click)="closeModal()">&times;</span>
+  </div>
+
+  <form #projectForm="ngForm" (ngSubmit)="submit()">
+
+    <!-- Category + Sub Category -->
+    <div class="row">
+      <div class="form-group">
+        <label>Category *</label>
+        <select
+          name="category"
+          #categorySelect
+          required
+          [(ngModel)]="project.category"
+          (change)="onCategoryChange(categorySelect.value)">
+          <option value="" disabled>Select category</option>
+          <option *ngFor="let category of categories" [value]="category">
+            {{ category }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Sub Category *</label>
+        <select
+          name="subCategory"
+          required
+          [(ngModel)]="project.subCategory"
+          [disabled]="!subCategories.length">
+          <option value="" disabled>Select sub category</option>
+          <option *ngFor="let subcategory of subCategories" [value]="subcategory">
+            {{ subcategory }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Project Name -->
+    <div class="form-group">
+      <label>Project Name *</label>
+      <input
+        type="text"
+        name="name"
+        required
+        [(ngModel)]="project.name" />
+    </div>
+
+    <!-- Type + Priority -->
+    <div class="row">
+      <div class="form-group">
+        <label>Project Type</label>
+        <select name="type" [(ngModel)]="project.type">
+          <option value="" disabled>Select type</option>
+          <option *ngFor="let type of types" [value]="type">
+            {{ type }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Priority</label>
+        <select name="priority" [(ngModel)]="project.priority">
+          <option *ngFor="let priority of priorities" [value]="priority">
+            {{ priority }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Dates -->
+    <div class="row">
+      <div class="form-group">
+        <label>Start Date</label>
+        <input type="date" name="startDate" [(ngModel)]="project.startDate" />
+      </div>
+
+      <div class="form-group">
+        <label>Due Date</label>
+        <input type="date" name="dueDate" [(ngModel)]="project.dueDate" />
+      </div>
+    </div>
+
+    <!-- Status -->
+    <div class="form-group">
+      <label>Status</label>
+      <select name="status" [(ngModel)]="project.status">
+        <option *ngFor="let status of statuses" [value]="status">
+          {{ status }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Actions -->
+    <div class="modal-actions">
+      <button type="button" class="cancel-btn" (click)="closeModal()">Cancel</button>
+      <button type="submit" class="primary-btn" [disabled]="!projectForm.valid">
+        Create Project
+      </button>
+    </div>
+
+  </form>
+</div>

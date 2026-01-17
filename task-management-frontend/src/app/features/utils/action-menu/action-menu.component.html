@@ -1,0 +1,14 @@
+<div class="action-wrapper">
+  <button class="action-btn" (click)="toggle($event)">...</button>
+
+  <div class="action-menu" *ngIf="isOpen">
+    <button
+      *ngFor="let item of items"
+      [class.danger]="item.danger"
+      [disabled]="item.disabled"
+      (click)="onSelect(item.action)"
+    >
+      {{ item.label }}
+    </button>
+  </div>
+</div>

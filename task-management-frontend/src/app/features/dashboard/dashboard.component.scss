@@ -1,0 +1,134 @@
+.dashboard {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Header */
+.dashboard-header {
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.dashboard-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.tabs button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.tabs button.active {
+  color: #4f46e5;
+  font-weight: 500;
+  border-bottom: 2px solid var(--text-primary);
+  border-radius: 0;
+}
+
+/* Filters */
+.filters {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 8px;
+  margin-bottom: 16px;
+  align-items: center;
+}
+
+.filter {
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  font-size: 13px;
+  cursor: pointer;
+  color: #000000;
+  padding-right: 10px;
+}
+
+.filter.ghost {
+  background: #f9fafb;
+}
+
+/* Primary button */
+.primary-btn {
+  background: #6366f1;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.project-name {
+  font-weight: bold;
+  font-size: 20px;
+  padding: 0 0 10px 2px;
+}
+
+.menu-divider {
+  border-top: 1px solid var(--border-default);;
+}
+
+.add-task {
+  justify-self: end;
+}
+
+.filters-container {
+  display: flex;
+  gap: 10px ;
+}
+
+.no-items-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.task-section-container {
+  flex: 1;
+  justify-items: center;
+}
+
+.no-items {
+  text-align: center;
+  width: 100%;
+}
+
+img {
+  max-width: 60%;
+}
+
+.empty-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--empty-title-color);
+  margin-top: 16px;
+}
+
+.empty-subtitle {
+  font-size: 0.95rem;
+  color: var(--empty-subtitle-color);
+  margin-top: 7px;
+}
+
+.no-items-image {
+  padding-bottom: 10px;
+}
+.no-projects-image img {
+  padding-top: 10%;
+}

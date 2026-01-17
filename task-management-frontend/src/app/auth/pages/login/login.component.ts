@@ -58,7 +58,7 @@ export class LoginComponent {
           localStorage.setItem('accessToken', token);
         }
         this.toaster.show("Login Successful", 'success')
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/app']);
       },
       error: (err) => {
         this.errorMessage =

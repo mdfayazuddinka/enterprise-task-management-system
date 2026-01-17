@@ -12,19 +12,19 @@
 
   <!-- PRIMARY NAV -->
   <div class="nav-section">
-    <a class="nav-item" [routerLink]="['/dashboard']">
+    <a class="nav-item" [routerLink]="['/app', 'dashboard']">
       <img [src]="isDark ? 'assets/icons/dark/dashboard-dark.svg' : 'assets/icons/light/dashboard-light.svg'" class="nav-icon" />
       <span class="nav-text">Dashboard</span>
       <span class="tooltip-custom">Dashboard</span>
     </a>
 
-    <a class="nav-item" [routerLink]="['/analytics']">
+    <a class="nav-item" [routerLink]="['/app', 'analytics']">
       <img [src]="isDark ? 'assets/icons/dark/analytics-dark.svg' : 'assets/icons/light/analytics-light.svg'" class="nav-icon" />
       <span class="nav-text">Analytics</span>
       <span class="tooltip-custom">Analytics</span>
     </a>
 
-    <a class="nav-item" [routerLink]="['/teams']">
+    <a class="nav-item" [routerLink]="['/app', 'teams']">
       <img [src]="isDark ? 'assets/icons/dark/teams-dark.svg' : 'assets/icons/light/teams-light.svg'" class="nav-icon" />
       <span class="nav-text">Teams</span>
       <span class="tooltip-custom">Teams</span>
@@ -37,11 +37,11 @@
   <!-- PROJECTS -->
   <div class="nav-section">
 
-    <div class="nav-item add-project" (click)="addProject()">
+    <a class="nav-item add-project" (click)="addProject()">
       <img [src]="isDark ? 'assets/icons/dark/add-project-dark.svg' : 'assets/icons/light/add-project-light.svg'" class="nav-icon">
       <span class="nav-text">Add Project</span>
       <span class="tooltip-custom">Add Project</span>
-    </div>
+    </a>
 
     <div class="nav-item projects" (click)="toggleProjects()">
       <img [src]="isDark ? 'assets/icons/dark/project-dark.svg' : 'assets/icons/light/project-light.svg'" class="nav-icon" />
@@ -61,10 +61,11 @@
 
     <!-- Project List -->
     <div class="projects-list" *ngIf="projectsOpen && !collapsed">
-      <a class="project-item"
-         *ngFor="let project of visibleProjects">
-        {{ project }}
-      </a>
+      <span class="project-item" 
+            *ngFor="let project of projects"
+            (click)="getSelectedProject(project)">
+        {{ project.name }}
+      </span>
 
       <div class="project-more"
            *ngIf="hasMoreProjects"

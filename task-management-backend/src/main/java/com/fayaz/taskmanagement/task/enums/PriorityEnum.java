@@ -1,6 +1,6 @@
 package com.fayaz.taskmanagement.task.enums;
 
-public enum TaskPriorityEnum {
+public enum PriorityEnum {
     BLOCKED,
     HIGH,
     NORMAL,

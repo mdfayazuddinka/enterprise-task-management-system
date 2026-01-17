@@ -15,10 +15,12 @@ public class TaskEntityToDto {
                 .description(taskEntity.getDescription())
                 .createdBy(taskEntity.getCreatedBy())
                 .assignedTo(taskEntity.getAssignedTo())
-                .deleted(taskEntity.isDeleted())
+                .priority(taskEntity.getPriority())
+                .createdDate(taskEntity.getCreatedDate())
+                .dueDate(taskEntity.getDueDate())
                 .comments(taskEntity.getComments())
                 .status(taskEntity.getStatus())
-                .audit(taskEntity.getAudit())
+                .projectId(taskEntity.getProjectId())
                 .build();
     }
 }

@@ -1,5 +1,10 @@
 package com.fayaz.taskmanagement.task.dto;
 
+import java.util.Date;
+
+import com.fayaz.taskmanagement.task.enums.PriorityEnum;
+import com.fayaz.taskmanagement.task.enums.StatusEnum;
+
 import lombok.Builder;
 import lombok.Data;
 
@@ -10,5 +15,10 @@ public class TaskCreationDto {
     private String description;
     private String createdBy;
     private String assignedTo;
+    private PriorityEnum priority;
+    private StatusEnum status;
+    private Date createdDate;
+    private Date dueDate;
     private String comments;
+    private String projectId;
 }

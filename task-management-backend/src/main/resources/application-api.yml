@@ -2,3 +2,4 @@ endpoint:
   base: /rest/api
   auth: ${endpoint.base}/auth
   tasks: ${endpoint.base}/tasks
+  project: ${endpoint.base}/project

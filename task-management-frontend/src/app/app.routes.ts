@@ -7,10 +7,15 @@ export const routes: Routes = [
       import('./auth/auth.routes').then(m => m.AUTH_ROUTES)
   },
   {
-    path: '',
+    path: 'app',
     loadChildren: () =>
       import('./layout/navigation.route')
         .then(m => m.NAVIGATION_ROUTES)
+  },
+  {
+    path: 'dashboard',
+    redirectTo: 'app/dashboard',
+    pathMatch: 'full'
   },
   {
     path: '**',

@@ -1,7 +1,9 @@
 package com.fayaz.taskmanagement.task.dto;
 
-import com.fayaz.taskmanagement.task.enums.TaskStatusEnum;
-import com.fayaz.taskmanagement.utils.AuditDto;
+import java.util.Date;
+
+import com.fayaz.taskmanagement.task.enums.PriorityEnum;
+import com.fayaz.taskmanagement.task.enums.StatusEnum;
 
 import lombok.Builder;
 import lombok.Data;
@@ -12,10 +14,12 @@ public class TaskDto {
     private String id;
     private String title;
     private String description;
-    private TaskStatusEnum status;
+    private PriorityEnum priority;
+    private StatusEnum status;
     private String createdBy;
+    private Date createdDate;
+    private Date dueDate;
     private String assignedTo;
     private String comments;
-    private boolean deleted;
-    private AuditDto audit;
+    private String projectId;
 }

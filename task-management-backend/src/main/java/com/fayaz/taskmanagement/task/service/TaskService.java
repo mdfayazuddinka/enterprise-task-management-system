@@ -1,5 +1,6 @@
 package com.fayaz.taskmanagement.task.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -20,4 +21,6 @@ public interface TaskService {
     TaskDto updateTask(String taskId, TaskUpsertDto task);
 
     void deleteTask(String taskId);
+
+    List<TaskDto> getTasksByProjectId(String projectId);
 }

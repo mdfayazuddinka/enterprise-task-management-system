@@ -1,3 +1,68 @@
-<div>
-    Dashboard Works
+<div class="dashboard" *ngIf="isProjectAvailable">
+
+  <div>
+    <!-- Header -->
+    <div class="dashboard-header">
+      <div class="title-header">
+        <div class="project-name">{{selectedProject.name}}</div>
+        <div class="tabs">
+          <button class="active">List</button>
+          <button>Board</button>
+          <button>Calendar</button>
+          <button>Files</button>
+        </div>
+        <div class="menu-divider"></div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+      <div class="filters-container">
+        <button class="filter">Due Date</button>
+        <button class="filter">Assignee</button>
+        <button class="filter">Priority</button>
+        <button class="filter ghost">Advanced Filters</button>
+      </div>
+      <div class="add-task" *ngIf="canShowTasks">
+        <button class="primary-btn" [routerLink]="['/app', { outlets: { popup: ['add-task'] } }]">
+          + Add New Task
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="task-section-container" *ngIf="canShowTasks">
+    <!-- Task Sections -->
+    <app-task-section title="Pending" color="gray" [tasks]="pendingTasks" (taskAction)="handleTaskAction($event)">
+    </app-task-section>
+
+    <app-task-section title="In Progress" color="yellow" [tasks]="inProgressTasks" (taskAction)="handleTaskAction($event)">
+    </app-task-section>
+
+    <app-task-section title="Completed" color="green" [tasks]="completedTasks" (taskAction)="handleTaskAction($event)">
+    </app-task-section>
+  </div>
+  <div class="no-items-container" *ngIf="!canShowTasks">
+    <div class="no-items">
+      <div class="no-items-image">
+        <img src="assets/images/no-tasks.png" alt="No tasks">
+      </div>
+      <span class="empty-title">No Tasks To Display</span>
+      <p class="empty-subtitle">Create a new task to get started.</p>
+      <button class="primary-btn" [routerLink]="['/app', { outlets: { popup: ['add-task'] } }]">
+        + Add New Task
+        </button>
+    </div>
+  </div>
 </div>
+
+<div class="dashboard" *ngIf="!isProjectAvailable">
+  <div class="no-items">
+    <div class="no-items-image no-projects-image">
+      <img src="assets/images/no-projects.png" alt="No projects">
+    </div>
+    <span class="empty-title">No Projects To Display</span>
+    <p class="empty-subtitle">Create a new project to get started.</p>
+    <button class="primary-btn" [routerLink]="['/app', { outlets: { popup: ['add-project'] } }]">+ Add New Project</button>
+  </div>
+</div>
+

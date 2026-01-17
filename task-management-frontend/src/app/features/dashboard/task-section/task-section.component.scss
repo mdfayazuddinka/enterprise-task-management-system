@@ -1,0 +1,83 @@
+.task-section {
+  margin-bottom: 20px;
+}
+
+/* Badge */
+.badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.badge.gray { background: var(--grey-badge); color: var(--grey-badge-text); }
+.badge.yellow { background: var(--yellow-badge); color: var(--yellow-badge-text); }
+.badge.green { background: var(--green-badge); color: var(--green-badge-text); }
+
+/* Card */
+.task-card {
+  background: var(--nav-hover);
+  border-radius: 12px;
+  border: 0.5px solid #e5e7eb;
+  margin-top: 8px;
+  padding: 12px;
+}
+
+/* Table Header */
+.task-header,
+.task-row {
+  display: grid;
+  grid-template-columns: 0.7fr 0.5fr 0.5fr 0.5fr 0.5fr 0.1fr;
+  padding: 10px 10px 10px 24px;
+  font-size: 14px;
+}
+
+.task-row {
+  border-bottom: 1px solid var(--border-default);
+}
+
+.task-header {
+  color: var(--text-primary);
+  font-weight: 500;
+  border-bottom: 1px solid var(--border-default);
+
+}
+
+.priority.high {
+  color: var(--form-error);
+}
+
+.priority.low {
+  color: var(--strength-fill);
+}
+
+.priority.medium {
+  color: var(--strength-fill-medium);
+}
+
+.add-task {
+  background: transparent;
+  border: none;
+  color: #6366f1;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.action-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #9ca3af;
+  display: grid;
+  place-items: center;
+  width: fit-content;
+}
+
+.action-btn:hover {
+  color: #4f46e5;
+}
+
+.task-item {
+  align-self: center;
+}

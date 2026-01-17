@@ -1,34 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ThemeService } from '../../core/theme.service';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { ProjectService } from '../../core/project.service';
+import { ProjectDto } from '../../features/enums/project';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
-export class SidebarComponent {
-  constructor(private theme: ThemeService) { }
-
+export class SidebarComponent implements OnInit {
   collapsed = false;
   projectsOpen = false;
-
-  projects = [
-    'Alpha',
-    'Beta',
-    'Gamma',
-    'Delta',
-    'Omega',
-    'Sigma',
-    'Orion',
-    'Nova',
-    'More X'
-  ];
-
+  projects!:ProjectDto[];
   visibleLimit = 7;
+
+  constructor(
+    private theme: ThemeService, 
+    private projectService: ProjectService,
+    private router: Router) {}
+
+  ngOnInit(): void {
+    this.getAllProjects();
+  }
+
   toggleSidebar() {
     this.collapsed = !this.collapsed;
   }
@@ -42,11 +41,23 @@ export class SidebarComponent {
   }
 
   addProject() {
-  alert('Add project clicked');
-}
+    this.router.navigate(['/app', { outlets: { popup: ['add-project'] } }])
+  }
 
-  get visibleProjects() {
-    return this.projects.slice(0, this.visibleLimit);
+  getSelectedProject(selectedProject: ProjectDto) {
+    this.projectService.setSelectedProject(selectedProject)
+  }
+
+  getAllProjects() {
+    this.projectService.getAllProjects().subscribe({
+      next: (response) => {
+        this.projects = response
+        this.projectService.setSelectedProject(this.projects[0])
+      },
+      error: (error) => {
+        console.log("error: ", error)
+      }
+    })
   }
 
   get hasMoreProjects() {

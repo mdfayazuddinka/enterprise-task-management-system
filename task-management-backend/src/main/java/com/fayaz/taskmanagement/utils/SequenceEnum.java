@@ -2,7 +2,8 @@ package com.fayaz.taskmanagement.utils;
 
 public enum SequenceEnum {
     USER_SEQUENCE("user_sequence"),
-    TASK_SEQUENCE("task_sequence");
+    TASK_SEQUENCE("task_sequence"),
+    PROJECT_SEQUENCE("project_sequence");
 
     private String sequenceName;
 

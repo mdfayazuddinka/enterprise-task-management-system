@@ -36,19 +36,14 @@
   --search-bg: #f9fafb;
   --search-border: #e5e7eb;
   --icon-border: #e5e7eb;
-  --bg-app: #f8fafc;        /* MAIN background (very light grey) */
+  --bg-app: var(--page-bg);        /* MAIN background (very light grey) */
   --bg-nav: #f8fafc;        /* Navbar background */
   --bg-sidebar: #ffffff;   /* Sidebar slightly whiter */
 
   /* Cards */
   --bg-card: #ffffff;
 
-  /* Borders */
-  --border-default: #e5e7eb;
-
   /* Text */
-  --text-primary: #0f172a;
-  --text-secondary: #64748b;
   --bg-sidebar: #ffffff;
   --border-default: #e5e7eb;
 
@@ -66,12 +61,23 @@
   --text-secondary: #475569;
   --tooltip-bg: #0f172a;
   --tooltip-text: #f8fafc;
+  --grey-badge : var(--text-secondary);
+  --yellow-badge: var(--strength-fill-medium);
+  --green-badge: #d1fae5;
+  --grey-badge-text: var(--bg-sidebar);
+  --yellow-badge-text: #92400e;
+  --green-badge-text: #065f46;
+
+  --empty-title-color: #1f2937;
+  --empty-subtitle-color: #6b7280;
+  --surface: #ffffff;
+  --surface-button: #0f172a;
 }
 
 /* Dark Theme Overrides */
 [data-theme="dark"] {
-  --page-bg: #0f172a;
-  --card-bg: #020617;
+  --page-bg: #020617;
+  --card-bg: #0a102a;
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
   --border-color: #1e293b;
@@ -88,13 +94,11 @@
   --logo-check-color: #e5e7eb;
   --nav-bg: #020617;
   --nav-border: #1e293b;
-  --text-primary: #e5e7eb;
   --search-bg: #020617;
   --search-border: #1e293b;
   --icon-border: #1e293b;
-  --bg-app: #020617;
+  --bg-app: var(--page-bg);
   --bg-nav: #020617;
-  --bg-sidebar: #020617;
   --bg-card: #020617;
   --border-default: #1e293b;
   --text-primary: #e5e7eb;
@@ -111,7 +115,6 @@
   --avatar-bg: #1e293b;
   --avatar-text: #93c5fd;
   --nav-text: #94a3b8;
-  --sidebar-bg: #020617;
   --sidebar-hover: rgba(255,255,255,0.06);
 
   --text-primary: #f8fafc;
@@ -119,14 +122,32 @@
 
   --tooltip-bg: #0f172a;
   --tooltip-text: #f8fafc;
+
+  --green-badge: #d1fae5;
+  --grey-badge : var(--text-secondary);
+  --yellow-badge: var(--strength-fill-medium);
+  --grey-badge-text: var(--bg-sidebar);
+  --yellow-badge-text: #92400e;
+  --green-badge-text: #065f46;
+  input[type="date"]::-webkit-calendar-picker-indicator {
+      filter: invert(1);
+      /* flips dark to light */
+      cursor: pointer;
+    }
+
+  --empty-title-color: #e5e7eb;
+  --empty-subtitle-color: #9ca3af;
+  --surface: #1f2937;
+  --surface-button: #ffffff;
 }
 
 html, body {
   height: 100%;
   margin: 0;
   font-family: 'Inter', system-ui, sans-serif;
-  background: var(--page-bg); /* PAGE background */
+  background: var(--page-bg);
   color: var(--text-primary);
+  --action-menu: #0f172a;
 }
 
 body {

@@ -1,7 +1,9 @@
 package com.fayaz.taskmanagement.task.enums;
 
-public enum TaskStatusEnum {
+public enum StatusEnum {
     TODO,
+    PENDING,
     IN_PROGRESS,
-    DONE
+    ON_HOLD,
+    COMPLETED
 }

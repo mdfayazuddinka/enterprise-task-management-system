@@ -3,6 +3,7 @@ export const environment = {
   api: {
     baseUrl: 'http://localhost:8080/rest/api',
     auth: '/auth',
-    tasks: '/tasks'
+    tasks: '/tasks',
+    project: '/project'
   }
 };

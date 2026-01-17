@@ -9,12 +9,17 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @RestController
 @RequestMapping("${endpoint.auth}")
@@ -35,4 +40,10 @@ public class AuthController {
     public ResponseEntity<Boolean> login(@Valid @RequestBody LoginRequestDto request, HttpServletResponse response) {
         return ResponseEntity.ok(authService.login(request, response));
     }
+
+    @GetMapping("getAllUserNames")
+    public Optional<List<String>> getAllUserNames() {
+        return authService.getAllUsersNames();
+    }
+    
 }

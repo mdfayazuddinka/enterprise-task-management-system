@@ -1,7 +1,6 @@
 
 package com.fayaz.taskmanagement.auth.service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +14,6 @@ import com.fayaz.taskmanagement.auth.dto.SignUpRequestDto;
 import com.fayaz.taskmanagement.auth.dto.SignUpResponseDto;
 import com.fayaz.taskmanagement.auth.entity.UserEntity;
 import com.fayaz.taskmanagement.auth.repository.UserRepository;
-import com.fayaz.taskmanagement.utils.AuditDto;
 import com.fayaz.taskmanagement.utils.JwtUtility;
 import com.fayaz.taskmanagement.utils.SequenceEnum;
 import com.fayaz.taskmanagement.utils.SequenceGeneratorService;
@@ -65,13 +63,6 @@ public class AuthService {
         .email(request.getEmail())
         .password(encodedPassword)
         .role(request.getRole() == null ? List.of(RoleEnum.ROLE_USER) : request.getRole())
-        .audit(AuditDto.builder()
-            .createdBy(request.getUserName())
-            .createdDate(new Date())
-            .lastModifiedDate(new Date())
-            .lastModifiedBy(request.getUserName())
-            .roles(request.getRole() == null ? List.of(RoleEnum.ROLE_USER) : request.getRole())
-            .build())
         .build();
     UserEntity savedEntity = userRepository.save(user);
     SignUpResponseDto responseDto = SignUpResponseDto.builder()
@@ -132,5 +123,13 @@ public class AuthService {
 
     public Optional<UserEntity> getUserById(String userId) {
         return userRepository.findByUserId(userId);
+    }
+
+    public Optional<UserEntity> getUserByName(String userName) {
+        return userRepository.findByUserName(userName);
+    }
+
+    public Optional<List<String>> getAllUsersNames() {
+        return Optional.of(userRepository.findAll().stream().map(UserEntity::getUserName).toList());
     }
 }

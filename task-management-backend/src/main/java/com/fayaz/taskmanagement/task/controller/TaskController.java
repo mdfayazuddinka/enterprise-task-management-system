@@ -1,5 +1,7 @@
 package com.fayaz.taskmanagement.task.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -46,7 +48,7 @@ public class TaskController {
                 sortOrder));
     }
 
-    @PostMapping("/createTask")
+    @PostMapping("/add-task")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<TaskDto> createTask(@RequestBody TaskCreationDto task) {
         TaskDto responseTaskDto = taskService.createTask(task);
@@ -61,6 +63,13 @@ public class TaskController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/project/{projectId}")
+    public ResponseEntity<List<TaskDto>> getTasksByProjectId(@PathVariable String projectId) {
+        List<TaskDto> tasks = taskService.getTasksByProjectId(projectId);
+        return ResponseEntity.ok(tasks);
+    }
+    
+
     @PutMapping("/{taskId}/update")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     public ResponseEntity<TaskDto> updateTask(@PathVariable String taskId, @RequestBody TaskUpsertDto task) {
@@ -68,7 +77,7 @@ public class TaskController {
         return ResponseEntity.ok(updated);
     }
 
-    @DeleteMapping("/{taskId}/delete")
+    @DeleteMapping("/delete-task/{taskId}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> deleteTask(@PathVariable String taskId) {
         taskService.deleteTask(taskId);
