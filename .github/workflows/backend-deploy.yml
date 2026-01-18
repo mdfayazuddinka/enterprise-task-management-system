@@ -1,8 +1,7 @@
 name: Backend CI/CD (Render)
 
 on:
-  push:
-    branches: [ "master" ]
+  workflow_dispatch:   # 👈 manual trigger only
 
 jobs:
   build-and-deploy:
@@ -18,14 +17,12 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: build 
+      - name: Build
         working-directory: task-management-backend
         run: mvn clean package -DskipTests
 
-      - name: Trigger Render deploy
+      - name: Trigger Render deploy via Deploy Hook
         env:
-          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-          MONGO_URI: ${{ secrets.MONGO_URI }}
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK }}
         run: |
-          echo "Render will pull latest code and deploy"
+          curl -X POST $DEPLOY_HOOK_URL
