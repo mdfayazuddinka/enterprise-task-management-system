@@ -1,21 +1,21 @@
+# Use Eclipse Temurin JDK 17
 FROM eclipse-temurin:17-jdk-alpine
 
+# Set working directory
 WORKDIR /app
 
 # Install Maven
-RUN apk add --no-cache maven nginx
+RUN apk add --no-cache maven
 
-# Copy your pom.xml and src folder first
-COPY pom.xml .
+# Copy Maven config & source code
+COPY pom.xml . 
 COPY src ./src
 
 # Build the JAR inside Docker
 RUN mvn clean package -DskipTests
 
-# Copy nginx config
-COPY nginx.conf /etc/nginx/nginx.conf
+# Expose Render's default port
+EXPOSE 8080
 
-EXPOSE 80
-
-CMD sh -c "java -jar target/*.jar --server.port=$PORT & nginx -g 'daemon off;'"
-
+# Run Spring Boot on the port Render provides
+CMD ["sh", "-c", "java -jar target/*.jar --server.port=${PORT}"]

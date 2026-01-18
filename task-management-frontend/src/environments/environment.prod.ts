@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   api: {
-    baseUrl: '/api/rest/api',
+    baseUrl: 'https://enterprise-task-management-system.onrender.com/rest/api',
     auth: '/auth',
     tasks: '/tasks',
     project: '/project'

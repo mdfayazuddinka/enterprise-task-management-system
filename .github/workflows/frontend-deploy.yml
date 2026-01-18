@@ -1,7 +1,7 @@
 name: Frontend CI/CD (Netlify)
 
 on:
-  workflow_dispatch:   # 👈 manual trigger only
+  workflow_dispatch:
 
 jobs:
   deploy:

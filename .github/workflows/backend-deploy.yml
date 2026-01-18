@@ -1,7 +1,7 @@
 name: Backend CI/CD (Render)
 
 on:
-  workflow_dispatch:   # 👈 manual trigger only
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
