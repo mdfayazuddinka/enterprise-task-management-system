@@ -2,6 +2,8 @@ import { environment } from '../../environments/environment';
 
 const BASE = environment.api.baseUrl;
 
+console.log(BASE);
+
 export const API_ENDPOINTS = {
   AUTH: {
     LOGIN: `${BASE}${environment.api.auth}/login`,

@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   api: {
-    baseUrl: '/api/rest/api',
+    baseUrl: '/api',
     auth: '/auth',
     tasks: '/tasks',
     project: '/project'
