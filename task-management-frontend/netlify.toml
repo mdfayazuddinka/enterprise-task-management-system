@@ -1,7 +1,6 @@
 [build]
   base    = "task-management-frontend"
   publish = "dist/Task-Manager/browser"
-  command = "npm run build"
 
 [[redirects]]
   from = "/api/*"

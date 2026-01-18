@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/Task-Manager",
+            "outputPath": "dist/Task-Manager/browser",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
