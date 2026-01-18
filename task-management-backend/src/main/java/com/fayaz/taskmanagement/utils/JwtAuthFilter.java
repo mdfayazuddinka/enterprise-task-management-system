@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -62,5 +63,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             request.setAttribute("jwt_exception", ex);
             throw ex;
         }
+    }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getRequestURI();
+
+        return HttpMethod.OPTIONS.matches(request.getMethod())
+            || path.startsWith("/rest/api/auth/");
     }
 }

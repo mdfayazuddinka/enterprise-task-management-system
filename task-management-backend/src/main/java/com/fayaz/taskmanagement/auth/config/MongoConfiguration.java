@@ -14,7 +14,6 @@ public class MongoConfiguration {
     ApplicationRunner mongoStartupCheck(MongoTemplate mongoTemplate) {
         return args -> {
             mongoTemplate.getDb().listCollectionNames().first();
-            System.out.println("The connecting url " + System.getenv("MONGO_URI"));
         };
     }
 } 

@@ -3,14 +3,12 @@
   publish = "dist/Task-Manager"
   command = "npm run build"
 
-# Backend API proxy (MUST COME FIRST)
 [[redirects]]
   from = "/api/*"
   to = "https://enterprise-task-management-backend.onrender.com/:splat"
   status = 200
   force = true
 
-# SPA routing (MUST COME LAST)
 [[redirects]]
   from = "/*"
   to = "/index.html"
