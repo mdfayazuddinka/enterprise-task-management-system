@@ -1,5 +1,7 @@
 package com.fayaz.taskmanagement.auth.config;
 
+import java.util.ArrayList;
+
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +14,7 @@ public class MongoConfiguration {
     ApplicationRunner mongoStartupCheck(MongoTemplate mongoTemplate) {
         return args -> {
             mongoTemplate.getDb().listCollectionNames().first();
+            System.out.println("The connecting url " + System.getenv("MONGO_URI"));
         };
     }
 } 
