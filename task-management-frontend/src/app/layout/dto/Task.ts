@@ -1,9 +1,11 @@
+import { AuditDto } from "../../auth/dto/auditDto";
+
 export enum TaskStatus {
-  TO_DO = 'TO_DO',
-  IN_PROGRESS = 'IN_PROGRESS',
-  COMPLETED = 'COMPLETED',
-  BLOCKED = 'BLOCKED',
-  QA_TESTING = 'QA_TESTING',
+  READY = 'Ready For Development',
+  DEVELOPING = 'Developing',
+  BLOCKED = 'Blocked',
+  QA_TESTING = 'QA Testing',
+  DONE = 'Done',
 }
 
 export enum TaskPriority {
@@ -32,14 +34,17 @@ export enum TaskLabel {
 export interface TaskDto {
   id: string;
   title: string;
+  taskId: string;
   description: string;
   priority: TaskPriority;
   status: TaskStatus;
-  createdBy: string;
-  createdDate: string;
+  type: TaskType;
   dueDate: string;
   assignedTo: string;
   comments: string;
+  projectId: string;
+  audit: AuditDto;
+  subTasks: any;
 }
 
 export interface TaskCreationDto {
@@ -63,4 +68,15 @@ export interface SubTaskCreationDto {
   priority: TaskPriority;
   parentTaskId: string;
   type: TaskType;
+}
+
+export interface TaskEditDto {
+  id: string;
+  title: string;
+  taskId: string;
+  description: string;
+  priority: TaskPriority;
+  status: TaskStatus;
+  assignedTo: string;
+  dueDate: string;
 }

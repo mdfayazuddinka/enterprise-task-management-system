@@ -19,10 +19,11 @@ public class TaskEntity {
     private String taskId;
     private String title;
     private String description;
+    private String type;
     private String assignedTo;
     private String comments;
     private PriorityEnum priority;
-    private StatusEnum status;
+    private String status;
     private Date dueDate;
     private String projectId;
     private AuditDto audit;

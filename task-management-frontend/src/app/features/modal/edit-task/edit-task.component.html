@@ -1,15 +1,14 @@
 <div class="modal">
   <div class="modal-content">
     <div class="modal-header">
-      <h3>Create New Task</h3>
+      <h3>Edit New Task</h3>
       <span class="close-btn" (click)="closeModal()">&times;</span>
     </div>
-    <span class="project-name">Project: {{project}}</span>
     <form class="task-form" [formGroup]="taskForm" (ngSubmit)="submitForm()">
       <div class="form-section">
         <div class="form-control">
           <label for="title">Task Title</label>
-          <input type="text" id="title" placeholder="Enter the task title" class="task-title" formControlName="title" />
+          <input type="text" id="title" class="task-title" formControlName="title" />
           <div *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched">
             <small class="error">Task title is required</small>
           </div>
@@ -18,8 +17,7 @@
         <div class="form-control text-truncate">
           <label for="type">Type</label>
           <select id="type" formControlName="type">
-            <option value="">Select Type</option>
-            <option *ngFor="let type of taskTypes" [value]="type">{{ type }}</option>
+            <option *ngFor="let type of taskTypes" [ngValue]="type">{{ type }}</option>
           </select>
           <div *ngIf="taskForm.get('type')?.invalid && taskForm.get('type')?.touched">
             <small class="error">Type is required</small>
@@ -53,30 +51,9 @@
 
       <div class="form-section">
         <div class="form-control">
-          <label for="createdDate">Created Date</label>
-          <input type="date" id="createdDate" formControlName="createdDate" />
-          <div *ngIf="taskForm.get('createdDate')?.invalid && taskForm.get('createdDate')?.touched">
-            <small class="error">Created date is required</small>
-          </div>
-        </div>
-
-        <div class="form-control">
-          <label for="dueDate">Due Date</label>
-          <input type="date" id="dueDate" formControlName="dueDate" />
-          <div *ngIf="taskForm.get('dueDate')?.invalid && taskForm.get('dueDate')?.touched">
-            <small class="error">Due date is required</small>
-          </div>
-          <div *ngIf="taskForm.errors?.['dueDateInvalid']">
-            <small class="error">Due date must be greater than created date</small>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-section">
-        <div class="form-control">
           <label for="status">Status</label>
           <div class="radio-group">
-            <label for="status" *ngFor="let status of taskStatuses">
+            <label *ngFor="let status of taskStatuses">
               <input type="radio" [value]="status" formControlName="status" />
               <span class="radio-button-text">{{ status }}</span>
             </label>
@@ -96,7 +73,7 @@
 
       <div class="modal-footer">
         <button type="button" class="btn secondary" (click)="closeModal()">Cancel</button>
-        <button type="submit" class="btn primary" [disabled]="taskForm.invalid">Create</button>
+        <button type="submit" class="btn primary" [disabled]="taskForm.invalid">Update</button>
       </div>
     </form>
   </div>

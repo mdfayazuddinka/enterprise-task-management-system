@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TaskCreationDto, TaskDto } from '../layout/dto/Task';
+import { TaskCreationDto, TaskDto, TaskEditDto } from '../layout/dto/Task';
 import { API_ENDPOINTS } from '../core/api/api-endpoints';
 import { TaskResponseDto } from '../layout/dto/TaskResponseDto';
 import { HttpClient } from '@angular/common/http';
@@ -28,6 +28,13 @@ export class TaskService {
   deleteTask(taskId: string): Observable<void> {
     return this.http.delete<void>(
       API_ENDPOINTS.TASKS.ROOT + `/delete-task/${taskId}`
+    );
+  }
+
+  updateTask(task: TaskEditDto): Observable<TaskDto> {
+    return this.http.put<TaskDto>(
+      API_ENDPOINTS.TASKS.ROOT + `/update/${task.taskId}`,
+      task
     );
   }
 }

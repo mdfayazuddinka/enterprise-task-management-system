@@ -15,23 +15,25 @@
     <button class="icon-btn">
       <img [src]="isDark ? 'assets/icons/dark/clipboard-dark.svg' : 'assets/icons/light/clipboard-light.svg'" alt="Tasks" />
     </button>
-    <div class="user-menu">
+    <div class="user-menu" (click)="toggleDropdown()" #menu>
       <div class="user-avatar">
-      {{ userInitial }}
-    </div>
-    <div class="user-dropdown">
-      <div class="user-info">
-        <div class="user-name">Name: {{ user.userName }}</div>
-        <div class="user-meta">ID: {{ user.userId }}</div>
-        <div class="user-meta">Role: {{ userRole }}</div>
+        {{ userInitial }}
       </div>
-      <button class="logout-btn" (click)="logout()">
-        Logout
-        <img [src]="isDark ? 'assets/icons/dark/lock-icon-dark.svg' : 'assets/icons/light/lock-icon-light.svg'"alt="logout" class="lock-icon">
-      </button>
+
+      <div class="user-dropdown" *ngIf="dropdownOpen">
+        <div class="user-info">
+          <div class="user-name">Name: {{ user.userName }}</div>
+          <div class="user-meta">ID: {{ user.userId }}</div>
+          <div class="user-meta">Role: {{ userRole }}</div>
+        </div>
+        <button class="logout-btn" (click)="logout()">
+          Logout
+          <img [src]="isDark ? 'assets/icons/dark/lock-icon-dark.svg' : 'assets/icons/light/lock-icon-light.svg'"
+              alt="logout" class="lock-icon">
+        </button>
+      </div>
     </div>
-    </div>
-    
+
     <button class="theme-toggle" (click)="toggleTheme()">
       <span class="toggle-icon">🌙 / ☀️</span>
     </button>

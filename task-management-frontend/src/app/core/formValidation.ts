@@ -1,4 +1,4 @@
-import { AbstractControl } from "@angular/forms";
+import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 
 export default class formValidation {
     static match(controlName: string, matchingControlName: string) {
@@ -19,3 +19,12 @@ export default class formValidation {
         };
     }
 }
+
+export const dueDateAfterCreatedValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+    const createdDate = new Date(control.get('createdDate')?.value);
+    const dueDate = new Date(control.get('dueDate')?.value);
+    if (createdDate && dueDate && dueDate <= createdDate) {
+        return { dueDateInvalid: true }; // error object
+    }
+    return null; // valid
+};

@@ -51,21 +51,21 @@ public class TaskController {
     }
 
     @PostMapping("/add-task")
-    @PreAuthorize("hasRole('ADMIN', 'PROJECT_MANAGER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'PROJECT_MANAGER')")
     public ResponseEntity<TaskDto> createTask(@RequestBody TaskCreationDto task) {
         TaskDto responseTaskDto = taskService.createTask(task);
         return ResponseEntity.ok(responseTaskDto);
     }
 
     @PostMapping("/add-subtask")
-    @PreAuthorize("hasRole('ADMIN', 'PROJECT_MANAGER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'PROJECT_MANAGER')")
     public ResponseEntity<SubTaskDto> createSubTask(@RequestBody SubTaskCreationDto subTask) {
         SubTaskDto responseTaskDto = taskService.createSubTask(subTask);
         return ResponseEntity.ok(responseTaskDto);
     }
 
     @GetMapping("/{taskId}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     public ResponseEntity<TaskDto> getTaskById(@PathVariable String taskId) {
         return taskService.getTaskById(taskId)
                 .map(ResponseEntity::ok)
@@ -79,15 +79,15 @@ public class TaskController {
     }
     
 
-    @PutMapping("/{taskId}/update")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    public ResponseEntity<TaskDto> updateTask(@PathVariable String taskId, @RequestBody TaskUpsertDto task) {
-        TaskDto updated = taskService.updateTask(taskId, task);
+    @PutMapping("/update/{taskId}")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'PROJECT_MANAGER', 'DEVELOPER', 'QA_TESTER')")
+    public ResponseEntity<TaskDto> updateTask(@PathVariable String taskId, @RequestBody TaskUpsertDto taskUpsertDto) {
+        TaskDto updated = taskService.updateTask(taskId, taskUpsertDto);
         return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/delete-task/{taskId}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<Void> deleteTask(@PathVariable String taskId) {
         taskService.deleteTask(taskId);
         return ResponseEntity.noContent().build();

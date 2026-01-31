@@ -132,3 +132,60 @@ img {
 .no-projects-image img {
   padding-top: 10%;
 }
+
+.popup-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+}
+.popup {
+  background: #fff;
+  padding: 24px;
+  margin: 100px auto;
+  width: 400px;
+  max-width: 95%;
+  border-radius: 8px;
+  color: #000;
+  text-align: center
+}
+
+.popup-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.popup-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+
+  span {
+    padding: 5px;
+  }
+}
+
+.delete-btn {
+  background: var(--form-error);
+  color: #fff;
+  border: none;
+  padding: 8px 45px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background: grey;
+  color: #000;
+  border: none;
+  padding: 8px 45px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.popup-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}

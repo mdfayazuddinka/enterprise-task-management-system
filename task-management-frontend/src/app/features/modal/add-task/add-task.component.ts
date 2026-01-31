@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../../../core/project.service';
-import { ProjectDto, ProjectPriority, ProjectStatus } from '../../enums/project';
+import { ProjectDto} from '../../enums/project';
 import { ToasterService } from '../../../core/toaster.service';
 import { CommonModule } from '@angular/common';
 import { UserDto } from '../../../layout/dto/userDto';
@@ -11,6 +11,7 @@ import { TaskService } from '../../task.service';
 import { TaskCreationDto, TaskPriority, TaskType } from '../../../layout/dto/Task';
 import { filter } from 'rxjs';
 import { TaskStatus } from '../../../layout/dto/Task';
+import { dueDateAfterCreatedValidator } from '../../../core/formValidation';
 
 @Component({
   selector: 'app-add-task',
@@ -28,7 +29,9 @@ export class AddTaskComponent implements OnInit {
   usersList!: String[];
   taskCreationDto!: TaskCreationDto;
   project = '';
+  selectedProject!: ProjectDto;
   taskForm!: FormGroup;
+  section: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -45,21 +48,24 @@ export class AddTaskComponent implements OnInit {
     .pipe(filter((project): project is ProjectDto => project !== null))
     .subscribe(project => {
       this.project = project.name;
+      this.selectedProject = project;
     });
+    this.route.queryParams.subscribe(params => { this.section = params['section'] || ''; });
     this.userInfo = this.authService.getCurrentUserInfo();
+    const status = this.statusMapper(this.section);
 
     this.taskForm = this.fb.group({
       title: ['', Validators.required],
       type: ['', Validators.required],
       priority: [TaskPriority.LOW, Validators.required],
-      status: [TaskStatus.TO_DO, Validators.required],
+      status: [status, Validators.required],
       assignedTo: ['', Validators.required],
       createdBy: [this.userInfo.userName],
       createdDate: [new Date().toISOString().split('T')[0], Validators.required],
       dueDate: ['', Validators.required],
       description: [''],
       comment: ['']
-    });
+    }, { validators: [dueDateAfterCreatedValidator] });
 
     this.projectService.getAllProjects().subscribe({
       next: projects => this.projectsList = projects,
@@ -74,9 +80,22 @@ export class AddTaskComponent implements OnInit {
     });
   }
 
+  statusMapper(status: string): TaskStatus {
+    switch (status) {
+      case 'Ready For Development':
+        return TaskStatus.READY;
+      case 'Developing':
+        return TaskStatus.DEVELOPING;
+      case 'Done':
+        return TaskStatus.DONE;
+      default:
+        return TaskStatus.READY;
+    }
+  }
+
   submitForm() {
     if (this.taskForm.valid) {
-      const projectName = this.taskForm.get('project')?.value; 
+      const projectName = this.selectedProject.name; 
       const projectCode = this.projectsList.find(p => p.name === projectName)?.projectCode;
       this.taskCreationDto = 
       { ...this.taskForm.value,
@@ -97,6 +116,7 @@ export class AddTaskComponent implements OnInit {
       this.taskForm.markAllAsTouched();
     }
   }
+
 
   closeModal() {
     this.router.navigate([{ outlets: { popup: null } }], { relativeTo: this.route.parent });

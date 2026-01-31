@@ -11,7 +11,7 @@
 /* Modal box */
 .modal-content {
   background: var(--card-bg);
-  width: 50%;
+  width: 52%;
   max-width: 95%;
   border-radius: 12px;
   overflow: hidden;
@@ -117,12 +117,11 @@ textarea {
 
 .radio-group {
   display: flex;
-  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .radio-button-text {
   margin-top: 5px;
-  font-size: smaller;
 }
 
 .radio-group label {
@@ -145,7 +144,6 @@ textarea {
   cursor: pointer;
   position: relative;
   transition: all 0.2s ease;
-  margin-left: 0;
 }
 
 /* Hover effect */
@@ -189,11 +187,4 @@ textarea {
 
 .task-form {
   padding: 3%;
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-  .task-form {
-    grid-template-columns: 1fr;
-  }
 }

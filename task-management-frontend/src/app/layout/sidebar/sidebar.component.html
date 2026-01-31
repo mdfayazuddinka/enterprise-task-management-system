@@ -37,7 +37,7 @@
   <!-- PROJECTS -->
   <div class="nav-section">
 
-    <a class="nav-item add-project" (click)="addProject()">
+    <a class="nav-item add-project" [routerLink]="['/app', { outlets: { popup: ['add-project'] } }]">
       <img [src]="isDark ? 'assets/icons/dark/add-project-dark.svg' : 'assets/icons/light/add-project-light.svg'" class="nav-icon">
       <span class="nav-text">Add Project</span>
       <span class="tooltip-custom">Add Project</span>
@@ -61,7 +61,8 @@
 
     <!-- Project List -->
     <div class="projects-list" *ngIf="projectsOpen && !collapsed">
-      <span class="project-item" 
+      <span class="project-item"
+            [ngClass]="{ 'active': project === selectedProject }"
             *ngFor="let project of projects"
             (click)="getSelectedProject(project)">
         {{ project.name }}

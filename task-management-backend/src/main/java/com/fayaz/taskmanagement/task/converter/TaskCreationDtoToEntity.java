@@ -1,5 +1,6 @@
 package com.fayaz.taskmanagement.task.converter;
 
+import java.io.ObjectInputFilter.Status;
 import java.util.Date;
 
 import org.springframework.security.core.Authentication;
@@ -11,6 +12,7 @@ import com.fayaz.taskmanagement.auth.entity.UserEntity;
 import com.fayaz.taskmanagement.auth.service.AuthService;
 import com.fayaz.taskmanagement.task.dto.TaskCreationDto;
 import com.fayaz.taskmanagement.task.entity.TaskEntity;
+import com.fayaz.taskmanagement.task.enums.StatusEnum;
 import com.fayaz.taskmanagement.utils.AuditDto;
 import com.fayaz.taskmanagement.utils.SequenceEnum;
 import com.fayaz.taskmanagement.utils.SequenceGeneratorService;
@@ -37,7 +39,8 @@ public class TaskCreationDtoToEntity {
                 .description(taskCreationDto.getDescription())
                 .assignedTo(taskCreationDto.getAssignedTo())
                 .comments(taskCreationDto.getComments())
-                .status(taskCreationDto.getStatus())
+                .status(StatusEnum.fromValue(taskCreationDto.getStatus()).name())
+                .type(taskCreationDto.getType())
                 .priority(taskCreationDto.getPriority())
                 .dueDate(taskCreationDto.getDueDate())
                 .projectId(taskCreationDto.getProjectId())

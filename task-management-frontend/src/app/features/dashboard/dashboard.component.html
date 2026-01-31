@@ -32,13 +32,16 @@
   </div>
   <div class="task-section-container" *ngIf="canShowTasks">
     <!-- Task Sections -->
-    <app-task-section title="Pending" color="gray" [tasks]="pendingTasks" (taskAction)="handleTaskAction($event)">
+    <app-task-section *ngIf="pendingTasks.length > 0" title="Ready For Development" color="gray" [tasks]="pendingTasks" (taskAction)="handleTaskAction($event)">
     </app-task-section>
 
-    <app-task-section title="In Progress" color="yellow" [tasks]="inProgressTasks" (taskAction)="handleTaskAction($event)">
+    <app-task-section *ngIf="inProgressTasks.length > 0" title="Developing" color="yellow" [tasks]="inProgressTasks" (taskAction)="handleTaskAction($event)">
     </app-task-section>
 
-    <app-task-section title="Completed" color="green" [tasks]="completedTasks" (taskAction)="handleTaskAction($event)">
+    <app-task-section *ngIf="qualityTasks.length > 0" title="QA Testing" color="yellow" [tasks]="qualityTasks" (taskAction)="handleTaskAction($event)">
+    </app-task-section>
+
+    <app-task-section *ngIf="completedTasks.length > 0" title="Completed" color="green" [tasks]="completedTasks" (taskAction)="handleTaskAction($event)">
     </app-task-section>
   </div>
   <div class="no-items-container" *ngIf="!canShowTasks">
@@ -48,7 +51,7 @@
       </div>
       <span class="empty-title">No Tasks To Display</span>
       <p class="empty-subtitle">Create a new task to get started.</p>
-      <button class="primary-btn" [routerLink]="['/app', { outlets: { popup: ['add-task'] } }]">
+      <button class="primary-btn" (click)="canAddTask()">
         + Add New Task
         </button>
     </div>
@@ -66,3 +69,25 @@
   </div>
 </div>
 
+<div *ngIf="showEditTaskModal">
+  <app-edit-task [task]="selectedTask" (canCloseModal)="handleCloseModal($event)" (TaskEditDto)="handleSubmitForm($event)"></app-edit-task>
+</div>
+
+<ng-container *ngIf="showDeleteTaskModal">
+  <div class="popup-overlay">
+    <div class="popup">
+      <div>
+        <img src="assets/icons/light/trash-icon.svg" alt="" width="20%">
+      </div>
+      <span class="popup-title">Confirm Delete</span>
+      <div class="popup-message">
+        <span>Are you sure you want to delete this task? </span>
+        <span>This action cannot be undone.</span>
+      </div>
+      <div class="popup-actions">
+        <button class="cancel-btn" (click)="exitDeleteTaskModal()">Cancel</button>
+        <button class="delete-btn" (click)="confirmDelete()">Delete</button>
+      </div>
+    </div>
+  </div>
+</ng-container>

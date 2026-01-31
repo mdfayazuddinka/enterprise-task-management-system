@@ -14,11 +14,13 @@ import lombok.Data;
 @Data
 public class TaskDto {
     private String id;
+    private String taskId;
     private String title;
     private String description;
     private PriorityEnum priority;
-    private StatusEnum status;
+    private String status;
     private Date dueDate;
+    private String type;
     private String assignedTo;
     private String comments;
     private String projectId;

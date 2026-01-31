@@ -5,6 +5,7 @@ import { LoginRequestDto } from './dto/loginRequestDto';
 import { SignupRequestDto } from './dto/signupRequestDto';
 import { SignUpResponseDto } from './dto/signUpResponseDto';
 import { Observable } from 'rxjs';
+import { UserInfoDto } from './dto/userInfoDto';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -40,7 +41,7 @@ export class AuthService {
   getCurrentUserInfo() {
     const token = localStorage.getItem('accessToken');
     const payload = JSON.parse(atob(token!.split('.')[1]));
-    return payload
+    return payload as UserInfoDto
   }
 
   getAllUserNames(): Observable<String[]> {

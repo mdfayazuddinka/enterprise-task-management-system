@@ -32,6 +32,7 @@ import com.fayaz.taskmanagement.task.dto.TaskDto;
 import com.fayaz.taskmanagement.task.dto.TaskUpsertDto;
 import com.fayaz.taskmanagement.task.entity.SubTaskEntity;
 import com.fayaz.taskmanagement.task.entity.TaskEntity;
+import com.fayaz.taskmanagement.task.enums.StatusEnum;
 import com.fayaz.taskmanagement.task.repository.SubTaskRepository;
 import com.fayaz.taskmanagement.task.repository.TaskRepository;
 
@@ -131,28 +132,24 @@ public class TaskServiceImpl implements TaskService {
                 .collect(Collectors.toList());
     }
 
-    public TaskDto updateTask(String taskId, TaskUpsertDto task) {
+    public TaskDto updateTask(String taskId, TaskUpsertDto taskUpsertDto) {
         Optional<TaskEntity> taskEntity = taskRepository.findByTaskId(taskId);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String userName = auth.getName();
-        if (!taskEntity.get().getAssignedTo().equals(userName)) {
+        if (!canEditTask(taskEntity.get())) {
             throw new TaskGenericException("User is not authorized to update this task: " + taskId);
         }
-        taskEntity.get().setComments(task.getComments());
-        taskEntity.get().setAssignedTo(task.getAssignedTo());
-        taskEntity.get().setStatus(task.getStatus());
-        taskEntity.get().setDescription(task.getDescription());
+
+        taskEntity.get().setTitle(taskUpsertDto.getTitle());
+        taskEntity.get().setType(taskUpsertDto.getType());
+        taskEntity.get().setPriority(taskUpsertDto.getPriority());
+        taskEntity.get().setStatus(StatusEnum.fromValue(taskUpsertDto.getStatus()).name());
+        taskEntity.get().setAssignedTo(taskUpsertDto.getAssignedTo());
+        taskEntity.get().setDescription(taskUpsertDto.getDescription());
         TaskEntity savedEntity = taskRepository.save(taskEntity.get());
         return TaskEntityToDto.convert(savedEntity);
     }
 
     public void deleteTask(String taskId) {
-        Optional<TaskEntity> taskEntity =  taskRepository.findById(taskId);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String userName = auth.getName();
-        if (!taskEntity.get().getAssignedTo().equals(userName)) {
-            throw new TaskGenericException("User is not authorized to delete this task: " + taskId);
-        }
+        Optional<TaskEntity> taskEntity =  taskRepository.findByTaskId(taskId);
         if (!taskEntity.isPresent()) {
             throw new TaskNotFoundException("Task not found with id: " + taskId);
         }
@@ -161,5 +158,12 @@ public class TaskServiceImpl implements TaskService {
 
     private TaskEntity save(TaskEntity task) {
         return taskRepository.save(task);
+    }
+
+    private boolean canEditTask(TaskEntity taskEntity) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userName = auth.getName();
+        return taskEntity != null && taskEntity.getAssignedTo().equals(userName) || auth.getAuthorities().stream()
+                .anyMatch(role -> role.getAuthority().equals("ADMIN") || role.getAuthority().equals("PROJECT_MANAGER"));
     }
 }

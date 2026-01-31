@@ -15,7 +15,8 @@ public class TaskCreationDto {
     private String description;
     private String assignedTo;
     private PriorityEnum priority;
-    private StatusEnum status;
+    private String type;
+    private String status;
     private Date createdDate;
     private Date dueDate;
     private String comments;
